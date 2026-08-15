@@ -1,0 +1,1842 @@
+/* ============================================================
+   [BRAND-NAME] — style guide v0.1  (MAST-derived Webflow baseline)
+
+   This is the unbranded starting point for a new client project.
+   Everything here is deliberately neutral: greyscale palette, system
+   font stacks, one placeholder accent. Run /styleguide to overwrite the
+   token block with the client's real design system.
+
+   Conventions (see AGENTS.md):
+   - Base classes are unprefixed        .section .container .row .col .button
+   - Combo variants use cc-             .button.cc-ghost
+   - Utilities use u- and !important    .u-text-centre
+   - British spelling                   --colour-*, .u-text-centre
+   - Desktop-first breakpoints          991px / 767px / 479px
+   - Selectors stay Webflow-flat        no descendant/child/:nth-child rules
+     outside the mode cascade and the custom-code bucket at the foot of
+     this file.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Fonts
+
+   The baseline ships system stacks so it renders with no network
+   dependency. Replace per project:
+
+   - Google fonts: add a <link> to each page head AND add the family in
+     Webflow → Site Settings → Fonts → Google Fonts. They do NOT transfer
+     via MCP.
+   - Custom fonts: upload .woff2 in Webflow → Site Settings → Fonts, then
+     match the EXACT Webflow-normalised family name in --font-* below —
+     it is rarely the same string as the design's name.
+
+   @font-face {
+       font-family: 'Client Display';
+       src: url('assets/fonts/client-display.woff2') format('woff2');
+       font-weight: 500;
+       font-display: swap;
+   }
+   ------------------------------------------------------------ */
+
+/* ============================================================
+   Tokens
+
+   These mirror Webflow Variables, which use Title Case with spaces in
+   the Designer (`Colour Primary` → `--colour-primary`). Webflow owns
+   :root on the live site — never hand-declare custom properties there.
+   This :root block exists only so the static build renders standalone.
+   ============================================================ */
+:root {
+    /* Colour — neutral ramp */
+    --colour-neutral-100: #ffffff;
+    --colour-neutral-200: #f5f5f4;
+    --colour-neutral-300: #e7e6e4;
+    --colour-neutral-400: #c9c7c3;
+    --colour-neutral-500: #8a8781;
+    --colour-neutral-600: #6b6862;
+    --colour-neutral-700: #454340;
+    --colour-neutral-800: #2a2927;
+    --colour-neutral-900: #161615;
+
+    /* Colour — brand (placeholders) */
+    --colour-primary: #3d5a80;
+    --colour-primary-hover: #2f4763;
+    --colour-primary-light: #8fb3d9;
+    --colour-primary-contrast: #ffffff;
+    --colour-destructive: #b3261e;
+    --colour-destructive-hover: #8f1e18;
+
+    /* Typography — families */
+    --font-heading: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+    /* Typography — fluid size bounds.
+       Documentation tokens: the clamp() rules below carry these as
+       literals because Webflow's style API silently coerces var()
+       inside clamp()/calc() to a bare variable binding. If you change a
+       bound here, change the matching literal too. */
+    --font-size-h1-min: 2.8rem;
+    --font-size-h1-max: 5.5rem;
+    --font-size-h2-min: 2rem;
+    --font-size-h2-max: 3.8rem;
+    --font-size-h3-min: 1.5rem;
+    --font-size-h3-max: 2.3rem;
+    --font-size-h4-min: 1.375rem;
+    --font-size-h4-max: 1.75rem;
+    --font-size-h5-min: 1.25rem;
+    --font-size-h5-max: 1.5rem;
+    --font-size-h6-min: 1.125rem;
+    --font-size-h6-max: 1.25rem;
+    --font-size-body-min: 1rem;
+    --font-size-body-max: 1.125rem;
+
+    /* Typography — fixed sizes */
+    --font-size-body-sm: 0.875rem;
+    --font-size-caption: 0.8125rem;
+    --font-size-eyebrow: 0.75rem;
+    --font-size-label: 0.8125rem;
+
+    /* Typography — line heights */
+    --line-height-display: 1.05;
+    --line-height-heading: 1.2;
+    --line-height-body: 1.55;
+    --line-height-small: 1.35;
+
+    /* Typography — weights */
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Typography — tracking */
+    --tracking-display: -0.02em;
+    --tracking-heading: -0.01em;
+    --tracking-wide: 0.08em;
+
+    /* Spacing — 8px base */
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 1rem;
+    --space-lg: 1.5rem;
+    --space-xl: 2rem;
+    --space-2xl: 3rem;
+    --space-3xl: 4rem;
+    --space-4xl: 6rem;
+
+    /* Radius */
+    --radius-none: 0;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-full: 999px;
+
+    /* Layout */
+    --grid-columns: 12;
+    --grid-gutter: 1.5rem;
+    --grid-margin: 5rem;
+    --container-max-width: 90rem;
+    --section-padding: var(--space-4xl);
+    --gap-main: var(--space-lg);
+    --gap-md: var(--space-md);
+    --gap-sm: var(--space-sm);
+    --nav-height: 4.5rem;
+
+    /* Component */
+    --radius-button: var(--radius-md);
+    --radius-card: var(--radius-lg);
+    --radius-input: var(--radius-md);
+    --button-height: 2.75rem;
+    --button-height-sm: 2.25rem;
+    --button-height-lg: 3.25rem;
+    --input-height: 3rem;
+    --shadow-card: 0 1px 2px rgba(22, 22, 21, 0.06), 0 8px 24px rgba(22, 22, 21, 0.06);
+    --transition-base: 160ms ease;
+
+    /* Mode — light is the default.
+       In Webflow these six are a `Mode` variable collection with Light
+       (default) and Dark modes; .cc-dark carries the Dark mode and
+       cascades to descendants natively. */
+    --mode-background: var(--colour-neutral-100);
+    --mode-surface: var(--colour-neutral-200);
+    --mode-text: var(--colour-neutral-900);
+    --mode-text-muted: var(--colour-neutral-600);
+    --mode-text-dim: var(--colour-neutral-500);
+    --mode-stroke: var(--colour-neutral-300);
+    --mode-accent: var(--colour-primary);
+}
+
+/* ============================================================
+   Reset / base
+   ============================================================ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--mode-background);
+    color: var(--mode-text);
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 0.9375rem + 0.21vw, 1.125rem);
+    line-height: var(--line-height-body);
+    font-weight: var(--font-weight-regular);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-base), opacity var(--transition-base);
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+hr {
+    height: 1px;
+    margin: var(--space-xl) 0;
+    border: 0;
+    background: var(--mode-stroke);
+}
+
+code,
+kbd,
+samp,
+pre {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+}
+
+code {
+    padding: 0.1em 0.35em;
+    background: var(--mode-surface);
+    border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   Page wrapper / skip link
+   ============================================================ */
+.page-wrapper {
+    min-height: 100vh;
+    background: var(--mode-background);
+    color: var(--mode-text);
+}
+
+.main-wrapper {
+    display: block;
+}
+
+.skip-link {
+    position: absolute;
+    top: auto;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.skip-link:focus {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 9999;
+    width: auto;
+    height: auto;
+    padding: 0.5rem 1rem;
+    background: var(--colour-primary);
+    color: var(--colour-primary-contrast);
+    border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   Mode — .cc-dark opt-in
+
+   The ONE descendant pattern allowed in this file: Webflow reproduces
+   it natively with variable modes, so long as descendants consume the
+   --mode-* variables rather than literals.
+   ============================================================ */
+.page-wrapper.cc-dark,
+.section.cc-dark {
+    --mode-background: var(--colour-neutral-900);
+    --mode-surface: var(--colour-neutral-800);
+    --mode-text: var(--colour-neutral-100);
+    --mode-text-muted: var(--colour-neutral-400);
+    --mode-text-dim: var(--colour-neutral-500);
+    --mode-stroke: var(--colour-neutral-700);
+    --mode-accent: var(--colour-primary-light);
+
+    background: var(--mode-background);
+    color: var(--mode-text);
+}
+
+/* Re-invert back to light inside a dark ancestor. */
+.section.cc-light {
+    --mode-background: var(--colour-neutral-100);
+    --mode-surface: var(--colour-neutral-200);
+    --mode-text: var(--colour-neutral-900);
+    --mode-text-muted: var(--colour-neutral-600);
+    --mode-text-dim: var(--colour-neutral-500);
+    --mode-stroke: var(--colour-neutral-300);
+    --mode-accent: var(--colour-primary);
+
+    background: var(--mode-background);
+    color: var(--mode-text);
+}
+
+/* ============================================================
+   Typography
+
+   Two parallel sets, on purpose:
+   - h1–h6 elements and .h1–.h6 classes, so semantic level and visual
+     size can differ (<h3 class="h2">).
+   - .text-* ramp — the transfer-safe set. Webflow REJECTS "h1".."h6" as
+     class names, so anything pushed into the Designer uses .text-*.
+   ============================================================ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0 0 0.4em;
+    color: var(--mode-text);
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading);
+    letter-spacing: var(--tracking-heading);
+    text-wrap: balance;
+}
+
+h1,
+.text-display-xl {
+    font-size: clamp(2.8rem, 1.45rem + 4.5vw, 5.5rem);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--tracking-display);
+}
+
+h2,
+.text-display-lg {
+    font-size: clamp(2rem, 1.1rem + 3vw, 3.8rem);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--tracking-display);
+}
+
+h3,
+.text-display-md {
+    font-size: clamp(1.5rem, 1.1rem + 1.33vw, 2.3rem);
+}
+
+h4,
+.text-heading-lg {
+    font-size: clamp(1.375rem, 1.1875rem + 0.63vw, 1.75rem);
+}
+
+h5,
+.text-heading-md {
+    font-size: clamp(1.25rem, 1.125rem + 0.42vw, 1.5rem);
+}
+
+h6,
+.text-heading-sm {
+    font-size: clamp(1.125rem, 1.0625rem + 0.21vw, 1.25rem);
+}
+
+/* The .text-* ramp carries its own family/weight/leading so it works on
+   any element, not just headings. */
+.text-display-xl,
+.text-display-lg,
+.text-display-md,
+.text-heading-lg,
+.text-heading-md,
+.text-heading-sm {
+    display: block;
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading);
+    letter-spacing: var(--tracking-heading);
+    color: var(--mode-text);
+}
+
+.text-body-lg {
+    font-size: clamp(1rem, 0.9375rem + 0.21vw, 1.125rem);
+    line-height: var(--line-height-body);
+}
+
+.text-body-sm {
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body);
+}
+
+p {
+    margin: 0 0 1em;
+}
+
+.lede {
+    font-size: clamp(1.125rem, 1rem + 0.42vw, 1.375rem);
+    line-height: var(--line-height-body);
+    color: var(--mode-text-muted);
+}
+
+.eyebrow {
+    display: block;
+    margin: 0 0 var(--space-sm);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-eyebrow);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-small);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--mode-text-muted);
+}
+
+.eyebrow.cc-accent {
+    color: var(--mode-accent);
+}
+
+.caption {
+    display: block;
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-small);
+    color: var(--mode-text-muted);
+}
+
+.label {
+    display: block;
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-small);
+    color: var(--mode-text);
+}
+
+blockquote {
+    margin: 0 0 var(--space-lg);
+    padding-left: var(--space-lg);
+    border-left: 2px solid var(--mode-accent);
+    font-size: clamp(1.125rem, 1rem + 0.42vw, 1.375rem);
+    line-height: var(--line-height-body);
+}
+
+/* ============================================================
+   Section + container
+   ============================================================ */
+.section {
+    padding: var(--section-padding) 0;
+    background: var(--mode-background);
+    color: var(--mode-text);
+}
+
+.section.cc-sm {
+    padding: var(--space-2xl) 0;
+}
+
+.section.cc-lg {
+    padding: calc(var(--section-padding) * 1.5) 0;
+}
+
+.section.cc-flush {
+    padding: 0;
+}
+
+/* For sections whose contents animate in from beyond the viewport edge,
+   so parked offscreen elements never widen the page. */
+.section.cc-clip {
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--grid-margin);
+}
+
+.container.cc-narrow {
+    max-width: 56rem;
+}
+
+/* ============================================================
+   12-col flexbox grid
+   ============================================================ */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 calc(var(--grid-gutter) / -2);
+    row-gap: var(--grid-gutter);
+}
+
+.col {
+    width: 100%;
+    min-width: 0;
+    padding: 0 calc(var(--grid-gutter) / 2);
+}
+
+.col-shrink {
+    flex: 0 0 auto;
+    width: auto;
+}
+
+.col-grow {
+    flex: 1 1 0;
+    width: auto;
+}
+
+.col-lg-1 {
+    width: 8.3333%;
+}
+
+.col-lg-2 {
+    width: 16.6666%;
+}
+
+.col-lg-3 {
+    width: 25%;
+}
+
+.col-lg-4 {
+    width: 33.3333%;
+}
+
+.col-lg-5 {
+    width: 41.6666%;
+}
+
+.col-lg-6 {
+    width: 50%;
+}
+
+.col-lg-7 {
+    width: 58.3333%;
+}
+
+.col-lg-8 {
+    width: 66.6666%;
+}
+
+.col-lg-9 {
+    width: 75%;
+}
+
+.col-lg-10 {
+    width: 83.3333%;
+}
+
+.col-lg-11 {
+    width: 91.6666%;
+}
+
+.col-lg-12 {
+    width: 100%;
+}
+
+.col-lg-offset-1 {
+    margin-left: 8.3333%;
+}
+
+.col-lg-offset-2 {
+    margin-left: 16.6666%;
+}
+
+.col-lg-offset-3 {
+    margin-left: 25%;
+}
+
+.col-lg-offset-4 {
+    margin-left: 33.3333%;
+}
+
+.col-lg-offset-5 {
+    margin-left: 41.6666%;
+}
+
+.col-lg-offset-6 {
+    margin-left: 50%;
+}
+
+.col-lg-first {
+    order: -1;
+}
+
+.col-lg-last {
+    order: 99;
+}
+
+.row-align-start {
+    align-items: flex-start;
+}
+
+.row-align-centre {
+    align-items: center;
+}
+
+.row-align-end {
+    align-items: flex-end;
+}
+
+.row-justify-centre {
+    justify-content: center;
+}
+
+.row-justify-end {
+    justify-content: flex-end;
+}
+
+.row-justify-between {
+    justify-content: space-between;
+}
+
+.row-content-between {
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+.row-gap-0 {
+    row-gap: 0;
+}
+
+.row-gap-sm {
+    row-gap: var(--gap-sm);
+}
+
+.row-gap-md {
+    row-gap: var(--gap-md);
+}
+
+.row-gap-lg {
+    row-gap: var(--space-xl);
+}
+
+/* ============================================================
+   Nav (global)
+
+   Layout that the source would express as `.nav > .container` lives on
+   a COMBO of the container instead (.container.cc-nav). Webflow has no
+   representation for a child selector, so a scoped rule like that
+   imports as nothing and the nav lays out as stacked blocks.
+   ============================================================ */
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--mode-background);
+    border-bottom: 1px solid var(--mode-stroke);
+}
+
+.container.cc-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    min-height: var(--nav-height);
+}
+
+.nav_logo {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-body-sm);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--mode-text);
+}
+
+.nav_menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav_item {
+    display: block;
+}
+
+.nav_link {
+    font-size: var(--font-size-body-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--mode-text-muted);
+}
+
+.nav_link:hover {
+    color: var(--mode-text);
+}
+
+.nav_link.cc-current {
+    color: var(--mode-text);
+}
+
+/* ============================================================
+   Footer (global)
+   ============================================================ */
+.footer {
+    padding: var(--space-2xl) 0;
+    background: var(--mode-background);
+    color: var(--mode-text);
+    border-top: 1px solid var(--mode-stroke);
+}
+
+.container.cc-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+}
+
+.footer_copy {
+    margin: 0;
+    font-size: var(--font-size-body-sm);
+    color: var(--mode-text-muted);
+}
+
+.footer_menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.footer_item {
+    display: block;
+}
+
+.footer_link {
+    font-size: var(--font-size-body-sm);
+    color: var(--mode-text-muted);
+}
+
+.footer_link:hover {
+    color: var(--mode-text);
+}
+
+/* ============================================================
+   Button
+   ============================================================ */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    height: var(--button-height);
+    padding: 0 var(--space-lg);
+    appearance: none;
+    border: 1px solid transparent;
+    border-radius: var(--radius-button);
+    background: var(--colour-primary);
+    color: var(--colour-primary-contrast);
+    font-family: var(--font-body);
+    font-size: var(--font-size-body-sm);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1;
+    text-align: center;
+    transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), opacity var(--transition-base);
+}
+
+.button:hover {
+    background: var(--colour-primary-hover);
+    color: var(--colour-primary-contrast);
+}
+
+.button:focus-visible {
+    outline: 2px solid var(--mode-accent);
+    outline-offset: 2px;
+}
+
+.button.cc-secondary {
+    background: var(--mode-surface);
+    border-color: var(--mode-stroke);
+    color: var(--mode-text);
+}
+
+.button.cc-secondary:hover {
+    background: var(--mode-stroke);
+    color: var(--mode-text);
+}
+
+.button.cc-ghost {
+    background: transparent;
+    border-color: var(--mode-stroke);
+    color: var(--mode-text);
+}
+
+.button.cc-ghost:hover {
+    background: var(--mode-surface);
+    color: var(--mode-text);
+}
+
+.button.cc-destructive {
+    background: var(--colour-destructive);
+    border-color: transparent;
+    color: var(--colour-primary-contrast);
+}
+
+.button.cc-destructive:hover {
+    background: var(--colour-destructive-hover);
+}
+
+.button.cc-sm {
+    height: var(--button-height-sm);
+    padding: 0 var(--space-md);
+    font-size: var(--font-size-caption);
+}
+
+.button.cc-lg {
+    height: var(--button-height-lg);
+    padding: 0 var(--space-xl);
+    font-size: var(--font-size-body-max);
+}
+
+.button.cc-full {
+    width: 100%;
+}
+
+.button.cc-disabled,
+.button[disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ============================================================
+   Form / Input
+   ============================================================ */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.form_field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+}
+
+.form_label {
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.2;
+    color: var(--mode-text);
+}
+
+.form_help {
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-small);
+    color: var(--mode-text-muted);
+}
+
+.form_error {
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-small);
+    color: var(--colour-destructive);
+}
+
+.form_option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.form_option-label {
+    font-size: var(--font-size-body-sm);
+    line-height: 1.2;
+    color: var(--mode-text);
+    cursor: pointer;
+}
+
+.input {
+    width: 100%;
+    height: var(--input-height);
+    padding: 0 var(--space-md);
+    appearance: none;
+    background: var(--mode-background);
+    border: 1px solid var(--mode-stroke);
+    border-radius: var(--radius-input);
+    color: var(--mode-text);
+    font-family: var(--font-body);
+    font-size: var(--font-size-body-sm);
+    line-height: 1;
+    transition: border-color var(--transition-base), background-color var(--transition-base);
+}
+
+.input::placeholder {
+    color: var(--mode-text-dim);
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--mode-accent);
+}
+
+.input.cc-error {
+    border-color: var(--colour-destructive);
+}
+
+.input.cc-textarea {
+    height: auto;
+    min-height: 8rem;
+    padding: var(--space-md);
+    line-height: var(--line-height-body);
+    resize: vertical;
+}
+
+/* The caret is a data-URI background image. If Webflow's style API
+   rejects it on transfer, ship this one declaration in the custom-code
+   CSS embed instead. */
+.select {
+    width: 100%;
+    height: var(--input-height);
+    padding: 0 var(--space-2xl) 0 var(--space-md);
+    appearance: none;
+    background-color: var(--mode-background);
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%236b6862' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-md) center;
+    background-size: 12px 8px;
+    border: 1px solid var(--mode-stroke);
+    border-radius: var(--radius-input);
+    color: var(--mode-text);
+    font-family: var(--font-body);
+    font-size: var(--font-size-body-sm);
+    line-height: 1;
+    cursor: pointer;
+}
+
+.select:focus {
+    outline: none;
+    border-color: var(--mode-accent);
+}
+
+.checkbox {
+    flex: 0 0 auto;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+    appearance: none;
+    background-color: var(--mode-background);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 12px 9px;
+    border: 1px solid var(--mode-stroke);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+
+.checkbox:checked {
+    background-color: var(--mode-accent);
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 9' fill='none'%3E%3Cpath d='M1 4.5 4.5 8 11 1' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    border-color: var(--mode-accent);
+}
+
+.checkbox:focus-visible {
+    outline: 2px solid var(--mode-accent);
+    outline-offset: 2px;
+}
+
+.radio {
+    flex: 0 0 auto;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+    appearance: none;
+    background-color: var(--mode-background);
+    border: 1px solid var(--mode-stroke);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.radio:checked {
+    border-color: var(--mode-accent);
+    border-width: 6px;
+}
+
+.radio:focus-visible {
+    outline: 2px solid var(--mode-accent);
+    outline-offset: 2px;
+}
+
+.toggle {
+    position: relative;
+    flex: 0 0 auto;
+    width: 2.75rem;
+    height: 1.5rem;
+    margin: 0;
+    appearance: none;
+    background: var(--colour-neutral-400);
+    border: 0;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: background-color var(--transition-base);
+}
+
+.toggle::after {
+    content: "";
+    position: absolute;
+    top: 0.1875rem;
+    left: 0.1875rem;
+    width: 1.125rem;
+    height: 1.125rem;
+    background: var(--colour-neutral-100);
+    border-radius: var(--radius-full);
+    transition: transform var(--transition-base);
+}
+
+.toggle:checked {
+    background: var(--mode-accent);
+}
+
+.toggle:checked::after {
+    transform: translateX(1.25rem);
+}
+
+.toggle:focus-visible {
+    outline: 2px solid var(--mode-accent);
+    outline-offset: 2px;
+}
+
+/* ============================================================
+   Tag / Chip
+   ============================================================ */
+.tag {
+    display: inline-flex;
+    align-items: center;
+    /* Stops the chip stretching to full width when it is a direct child of
+       a column flex container such as .card. Ignored outside flex. */
+    align-self: flex-start;
+    gap: var(--space-xs);
+    padding: 0.25rem 0.625rem;
+    background: var(--mode-surface);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    color: var(--mode-text);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-eyebrow);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.tag.cc-accent {
+    background: var(--colour-primary);
+    color: var(--colour-primary-contrast);
+}
+
+.tag.cc-outline {
+    background: transparent;
+    border-color: var(--mode-stroke);
+    color: var(--mode-text-muted);
+}
+
+.tag.cc-round {
+    border-radius: var(--radius-full);
+}
+
+/* For use on a filled surface — see the note on .card_description.cc-inverse. */
+.tag.cc-inverse {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: transparent;
+    color: var(--colour-primary-contrast);
+}
+
+/* ============================================================
+   Card
+   ============================================================ */
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    height: 100%;
+    padding: var(--space-xl);
+    background: var(--mode-surface);
+    border: 1px solid var(--mode-stroke);
+    border-radius: var(--radius-card);
+    color: var(--mode-text);
+}
+
+.card_image {
+    width: 100%;
+    border-radius: var(--radius-md);
+}
+
+.card_title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: clamp(1.25rem, 1.125rem + 0.42vw, 1.5rem);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading);
+    color: inherit;
+}
+
+.card_description {
+    margin: 0;
+    font-size: var(--font-size-body-sm);
+    color: var(--mode-text-muted);
+}
+
+/* On a filled card (.card.cc-featured) the muted grey has no contrast, so
+   the description inherits the card's own colour instead. Expressed as a
+   combo on the child rather than `.card.cc-featured .card_description` —
+   Webflow cannot represent a descendant selector, so a rule written that
+   way would import as nothing. */
+.card_description.cc-inverse {
+    color: inherit;
+    opacity: 0.85;
+}
+
+.card_footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: auto;
+    padding-top: var(--space-sm);
+}
+
+.card.cc-featured {
+    background: var(--colour-primary);
+    border-color: var(--colour-primary);
+    color: var(--colour-primary-contrast);
+}
+
+.card.cc-compact {
+    gap: var(--space-sm);
+    padding: var(--space-md);
+}
+
+.card.cc-flat {
+    background: transparent;
+    border-color: transparent;
+    padding: 0;
+}
+
+.card.cc-raised {
+    box-shadow: var(--shadow-card);
+}
+
+/* ============================================================
+   Icon
+
+   Inline SVGs carry no width/height attributes — only a viewBox — so
+   size is controlled here and colour inherits via currentColor.
+   ============================================================ */
+.icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--mode-text);
+}
+
+.icon.cc-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+.icon.cc-lg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.icon.cc-accent {
+    color: var(--mode-accent);
+}
+
+/* ============================================================
+   Visual heading classes (.h1–.h6)
+
+   Deliberately placed AFTER every component so they out-rank component
+   element classes at equal specificity — that is what makes the
+   documented pattern work:
+
+       <h3 class="card_title h5">   h3 in the DOM, h5 on screen
+
+   Webflow's own cascade is element defaults → tag styles → class
+   styles, and later-declared classes win ties, so this ordering is what
+   the Designer reproduces. Keep this block last.
+   ============================================================ */
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading);
+    letter-spacing: var(--tracking-heading);
+    text-wrap: balance;
+}
+
+.h1 {
+    font-size: clamp(2.8rem, 1.45rem + 4.5vw, 5.5rem);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--tracking-display);
+}
+
+.h2 {
+    font-size: clamp(2rem, 1.1rem + 3vw, 3.8rem);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--tracking-display);
+}
+
+.h3 {
+    font-size: clamp(1.5rem, 1.1rem + 1.33vw, 2.3rem);
+}
+
+.h4 {
+    font-size: clamp(1.375rem, 1.1875rem + 0.63vw, 1.75rem);
+}
+
+.h5 {
+    font-size: clamp(1.25rem, 1.125rem + 0.42vw, 1.5rem);
+}
+
+.h6 {
+    font-size: clamp(1.125rem, 1.0625rem + 0.21vw, 1.25rem);
+}
+
+/* ============================================================
+   Style guide only  (styles__ prefix)
+
+   Scaffolding for style-guide.html — swatch chips, spacing bars, grid
+   fills. Never used on real pages. If the style guide is dropped from a
+   project, delete this whole block.
+   ============================================================ */
+.styles__block {
+    padding: var(--space-2xl) 0;
+    border-bottom: 1px solid var(--mode-stroke);
+}
+
+.styles__block.cc-last {
+    border-bottom: 0;
+}
+
+.styles__stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.styles__inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.styles__swatch {
+    width: 100%;
+    height: 5rem;
+    margin-bottom: var(--space-sm);
+    border: 1px solid var(--mode-stroke);
+    border-radius: var(--radius-md);
+}
+
+.styles__spacer {
+    height: 1.25rem;
+    background: var(--mode-accent);
+    border-radius: var(--radius-sm);
+}
+
+.styles__spacer.cc-xs {
+    width: var(--space-xs);
+}
+
+.styles__spacer.cc-sm {
+    width: var(--space-sm);
+}
+
+.styles__spacer.cc-md {
+    width: var(--space-md);
+}
+
+.styles__spacer.cc-lg {
+    width: var(--space-lg);
+}
+
+.styles__spacer.cc-xl {
+    width: var(--space-xl);
+}
+
+.styles__spacer.cc-2xl {
+    width: var(--space-2xl);
+}
+
+.styles__spacer.cc-3xl {
+    width: var(--space-3xl);
+}
+
+.styles__spacer.cc-4xl {
+    width: var(--space-4xl);
+}
+
+.styles__demo {
+    padding: var(--space-sm);
+    background: var(--mode-surface);
+    border: 1px dashed var(--mode-stroke);
+    border-radius: var(--radius-sm);
+    color: var(--mode-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-eyebrow);
+    text-align: center;
+}
+
+/* ============================================================
+   Utilities (max 4 per element — beyond that, make a custom class)
+   ============================================================ */
+.u-font-heading {
+    font-family: var(--font-heading) !important;
+}
+
+.u-font-body {
+    font-family: var(--font-body) !important;
+}
+
+.u-font-mono {
+    font-family: var(--font-mono) !important;
+}
+
+.u-text-left {
+    text-align: left !important;
+}
+
+.u-text-centre {
+    text-align: center !important;
+}
+
+.u-text-right {
+    text-align: right !important;
+}
+
+.u-text-balance {
+    text-wrap: balance !important;
+}
+
+.u-text-pretty {
+    text-wrap: pretty !important;
+}
+
+.u-text-clamp-1 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+.u-text-clamp-2 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+.u-text-clamp-3 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+.u-text-indent {
+    text-indent: 2.5rem !important;
+}
+
+.u-text-indent-lg {
+    text-indent: 3rem !important;
+}
+
+.u-text-uppercase {
+    text-transform: uppercase !important;
+}
+
+.u-text-primary {
+    color: var(--mode-text) !important;
+}
+
+.u-text-muted {
+    color: var(--mode-text-muted) !important;
+}
+
+.u-text-dim {
+    color: var(--mode-text-dim) !important;
+}
+
+.u-text-accent {
+    color: var(--mode-accent) !important;
+}
+
+.u-bg-background {
+    background: var(--mode-background) !important;
+}
+
+.u-bg-surface {
+    background: var(--mode-surface) !important;
+}
+
+.u-bg-accent {
+    background: var(--colour-primary) !important;
+}
+
+.u-m-0 {
+    margin: 0 !important;
+}
+
+.u-mlr-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.u-mt-0 {
+    margin-top: 0 !important;
+}
+
+.u-mt-xs {
+    margin-top: var(--space-xs) !important;
+}
+
+.u-mt-sm {
+    margin-top: var(--space-sm) !important;
+}
+
+.u-mt-md {
+    margin-top: var(--space-md) !important;
+}
+
+.u-mt-lg {
+    margin-top: var(--space-lg) !important;
+}
+
+.u-mt-xl {
+    margin-top: var(--space-xl) !important;
+}
+
+.u-mt-2xl {
+    margin-top: var(--space-2xl) !important;
+}
+
+.u-mt-3xl {
+    margin-top: var(--space-3xl) !important;
+}
+
+.u-mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.u-mb-xs {
+    margin-bottom: var(--space-xs) !important;
+}
+
+.u-mb-sm {
+    margin-bottom: var(--space-sm) !important;
+}
+
+.u-mb-md {
+    margin-bottom: var(--space-md) !important;
+}
+
+.u-mb-lg {
+    margin-bottom: var(--space-lg) !important;
+}
+
+.u-mb-xl {
+    margin-bottom: var(--space-xl) !important;
+}
+
+.u-mb-2xl {
+    margin-bottom: var(--space-2xl) !important;
+}
+
+.u-mb-3xl {
+    margin-bottom: var(--space-3xl) !important;
+}
+
+.u-p-0 {
+    padding: 0 !important;
+}
+
+.u-pt-0 {
+    padding-top: 0 !important;
+}
+
+.u-pt-md {
+    padding-top: var(--space-md) !important;
+}
+
+.u-pt-lg {
+    padding-top: var(--space-lg) !important;
+}
+
+.u-pt-xl {
+    padding-top: var(--space-xl) !important;
+}
+
+.u-pb-0 {
+    padding-bottom: 0 !important;
+}
+
+.u-pb-md {
+    padding-bottom: var(--space-md) !important;
+}
+
+.u-pb-lg {
+    padding-bottom: var(--space-lg) !important;
+}
+
+.u-pb-xl {
+    padding-bottom: var(--space-xl) !important;
+}
+
+.u-d-none {
+    display: none !important;
+}
+
+.u-d-block {
+    display: block !important;
+}
+
+.u-d-inline-block {
+    display: inline-block !important;
+}
+
+.u-d-flex {
+    display: flex !important;
+}
+
+.u-d-grid {
+    display: grid !important;
+}
+
+.u-position-relative {
+    position: relative !important;
+}
+
+.u-position-absolute {
+    position: absolute !important;
+}
+
+.u-position-sticky {
+    position: sticky !important;
+}
+
+.u-w-100 {
+    width: 100% !important;
+}
+
+.u-h-100 {
+    height: 100% !important;
+}
+
+.u-minh-100vh {
+    min-height: 100vh !important;
+}
+
+.u-overflow-hidden {
+    overflow: hidden !important;
+}
+
+.u-object-cover {
+    object-fit: cover !important;
+}
+
+.u-aspect-1x1 {
+    aspect-ratio: 1 / 1 !important;
+}
+
+.u-aspect-4x3 {
+    aspect-ratio: 4 / 3 !important;
+}
+
+.u-aspect-3x2 {
+    aspect-ratio: 3 / 2 !important;
+}
+
+.u-aspect-16x9 {
+    aspect-ratio: 16 / 9 !important;
+}
+
+/* ============================================================
+   Breakpoint cascade (desktop-first)
+
+   Only Webflow's three breakpoints are used — the style API accepts no
+   others, and no min-width queries.
+   ============================================================ */
+@media screen and (max-width: 991px) {
+    :root {
+        --grid-margin: var(--space-xl);
+        --section-padding: var(--space-3xl);
+        --nav-height: 4rem;
+    }
+
+    .col-md-1 {
+        width: 8.3333%;
+    }
+
+    .col-md-2 {
+        width: 16.6666%;
+    }
+
+    .col-md-3 {
+        width: 25%;
+    }
+
+    .col-md-4 {
+        width: 33.3333%;
+    }
+
+    .col-md-5 {
+        width: 41.6666%;
+    }
+
+    .col-md-6 {
+        width: 50%;
+    }
+
+    .col-md-7 {
+        width: 58.3333%;
+    }
+
+    .col-md-8 {
+        width: 66.6666%;
+    }
+
+    .col-md-9 {
+        width: 75%;
+    }
+
+    .col-md-10 {
+        width: 83.3333%;
+    }
+
+    .col-md-11 {
+        width: 91.6666%;
+    }
+
+    .col-md-12 {
+        width: 100%;
+    }
+
+    [class*="col-lg-offset"] {
+        margin-left: 0;
+    }
+
+    .col-md-first {
+        order: -1;
+    }
+
+    .col-md-last {
+        order: 99;
+    }
+
+    .u-d-md-none {
+        display: none !important;
+    }
+
+    .u-d-md-block {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    :root {
+        --grid-margin: var(--space-lg);
+        --section-padding: var(--space-2xl);
+    }
+
+    .col-sm-1 {
+        width: 8.3333%;
+    }
+
+    .col-sm-2 {
+        width: 16.6666%;
+    }
+
+    .col-sm-3 {
+        width: 25%;
+    }
+
+    .col-sm-4 {
+        width: 33.3333%;
+    }
+
+    .col-sm-5 {
+        width: 41.6666%;
+    }
+
+    .col-sm-6 {
+        width: 50%;
+    }
+
+    .col-sm-7 {
+        width: 58.3333%;
+    }
+
+    .col-sm-8 {
+        width: 66.6666%;
+    }
+
+    .col-sm-9 {
+        width: 75%;
+    }
+
+    .col-sm-10 {
+        width: 83.3333%;
+    }
+
+    .col-sm-11 {
+        width: 91.6666%;
+    }
+
+    .col-sm-12 {
+        width: 100%;
+    }
+
+    .col-sm-first {
+        order: -1;
+    }
+
+    .col-sm-last {
+        order: 99;
+    }
+
+    .u-d-sm-none {
+        display: none !important;
+    }
+
+    .u-d-sm-block {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    :root {
+        --grid-margin: var(--space-md);
+        --section-padding: var(--space-xl);
+    }
+
+    .col-xs-1 {
+        width: 8.3333%;
+    }
+
+    .col-xs-2 {
+        width: 16.6666%;
+    }
+
+    .col-xs-3 {
+        width: 25%;
+    }
+
+    .col-xs-4 {
+        width: 33.3333%;
+    }
+
+    .col-xs-5 {
+        width: 41.6666%;
+    }
+
+    .col-xs-6 {
+        width: 50%;
+    }
+
+    .col-xs-7 {
+        width: 58.3333%;
+    }
+
+    .col-xs-8 {
+        width: 66.6666%;
+    }
+
+    .col-xs-9 {
+        width: 75%;
+    }
+
+    .col-xs-10 {
+        width: 83.3333%;
+    }
+
+    .col-xs-11 {
+        width: 91.6666%;
+    }
+
+    .col-xs-12 {
+        width: 100%;
+    }
+
+    .u-text-indent,
+    .u-text-indent-lg {
+        text-indent: 1.5rem !important;
+    }
+
+    .u-d-xs-none {
+        display: none !important;
+    }
+
+    .u-d-xs-block {
+        display: block !important;
+    }
+}
+
+/* ============================================================
+   CUSTOM CODE CSS EMBED
+
+   Everything below this line has no Designer-class representation —
+   element/attribute selectors, pseudo-elements on the document, and
+   media queries Webflow does not model. On transfer, paste this block
+   into Webflow → Custom Code (or a CSS embed at the top of the
+   Navigator). Do not try to author it as classes.
+   ============================================================ */
+
+/* Text selection */
+::selection {
+    background: var(--mode-accent);
+    color: var(--colour-neutral-100);
+}
+
+/* In-page anchor targets land below the sticky nav rather than under it. */
+[id] {
+    scroll-margin-top: calc(var(--nav-height) + var(--space-md));
+}
+
+/* Interactions and animations must degrade for reduced-motion users. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    [data-animate] * {
+        animation: none !important;
+        transition: none !important;
+    }
+}
