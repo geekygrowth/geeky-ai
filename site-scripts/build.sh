@@ -14,7 +14,7 @@ cd "$(dirname "$0")"
 # ── Configuration ──────────────────────────────────────────────────────────
 # GH_SLUG must match the GitHub repo that serves the bundles over jsDelivr.
 # STAMPED lists the files carrying a pinned @vX.Y.Z tag that build.sh rewrites.
-GH_SLUG="0x5am5/webflai-ai-workflow-template"
+GH_SLUG="geekygrowth/geeky-ai"
 STAMPED=(webflow-snippet.html)
 
 # Bundles. page-init MUST be first in the core bundle — it defines

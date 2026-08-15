@@ -1,5 +1,9 @@
 # Webflow Project Template
 
+> Based on [`0x5am5/webflai-ai-workflow-template`](https://github.com/0x5am5/webflai-ai-workflow-template)
+> by [Samuel Gregory](https://samuelgregory.co.uk). Copied, not forked — all credit for the
+> conventions and skills belongs upstream.
+
 A static HTML/CSS scaffold and convention guide for building sites that are idiomatic for Webflow — written so an AI agent (or a human) can produce output that imports cleanly into Webflow Designer.
 
 Copy this repo to start a client project. It ships unbranded: a neutral greyscale palette, system font stacks, and `[BRAND-NAME]` placeholders throughout.
