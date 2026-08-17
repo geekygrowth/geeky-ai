@@ -4,7 +4,7 @@ A reference for AI agents building static HTML/CSS projects intended for Webflow
 
 ## Project Name
 
-Project name: [BRAND-NAME]
+Project name: GeekyGrowth
 
 ---
 

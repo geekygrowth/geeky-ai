@@ -3,28 +3,24 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="theme-color" content="#ffffff">
-        <title>Style Guide — [BRAND-NAME]</title>
-        <meta name="description" content="Typography, colour, spacing, buttons, forms, icons, cards and grid. The source of truth for this project's foundations.">
+        <meta name="theme-color" content="#f8f7fc">
+        <title>Style guide — GeekyGrowth</title>
+        <meta name="description" content="Typography, colour, spacing, radii and primitives for the GeekyGrowth design system.">
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <!--
-            Style guide.
+            Style guide — the source of truth for foundations.
 
-            Every reusable style lives here first — the rest of the site
-            may only use classes that already appear on this page. When a
-            new token or variant is added to styles.css, demonstrate it
-            here in the same commit.
-
-            Specimen text uses <p class="h1"> rather than a real <h1> so
-            the document's heading hierarchy stays valid.
+            Every token declared in styles.css is rendered somewhere on this
+            page. Imported from the Figma file's four variable collections
+            (Brand / Alias / Mapped / Responsive), not from a rendered frame.
         -->
         <div class="page-wrapper">
             <nav class="nav">
                 <a class="skip-link" href="#main">Skip to content</a>
                 <div class="container cc-nav">
-                    <a class="nav_logo" href="index.html">[BRAND-NAME]</a>
+                    <a class="nav_logo" href="index.html">GeekyGrowth</a>
                     <ul class="nav_menu">
                         <li class="nav_item"><a class="nav_link" href="index.html">Home</a></li>
                         <li class="nav_item"><a class="nav_link cc-current" href="style-guide.html">Style guide</a></li>
@@ -33,439 +29,599 @@
             </nav>
 
             <main class="main-wrapper" id="main">
-                <section class="section cc-sm">
+                <!-- ========== Hero ========== -->
+                <section class="section">
                     <div class="container">
-                        <span class="eyebrow">Foundations</span>
-                        <h1>Style guide</h1>
-                        <p class="lede">Typography, colour, spacing, buttons, forms, icons, cards and grid — the complete set of classes available to this project.</p>
+                        <div class="row">
+                            <div class="col col-lg-9 col-md-12">
+                                <span class="eyebrow">Design system</span>
+                                <h1>GeekyGrowth foundations</h1>
+                                <p class="lede">Typography, colour, spacing, radii and primitives — imported directly from the Figma variable collections. This page is the reference the static build, the Figma library and the Webflow project all answer to.</p>
+                            </div>
+                        </div>
                     </div>
                 </section>
 
-                <!-- 1. Typography -->
-                <section class="section cc-flush" id="typography">
+                <!-- ========== Palette ========== -->
+                <section class="section cc-sm" id="palette">
                     <div class="container">
-                        <div class="styles__block">
-                            <h2>Typography</h2>
-                            <p class="caption u-mb-xl">Headings scale fluidly with <code>clamp()</code> between 480px and 1440px. Use the semantic element for document structure and a <code>.h1</code>–<code>.h6</code> class for visual size — <code>&lt;h3 class="h2"&gt;</code> is an h3 in the DOM that looks like an h2.</p>
-
-                            <div class="styles__stack u-mb-2xl">
-                                <p class="h1 u-m-0">Heading one — 2.8 to 5.5rem</p>
-                                <p class="h2 u-m-0">Heading two — 2 to 3.8rem</p>
-                                <p class="h3 u-m-0">Heading three — 1.5 to 2.3rem</p>
-                                <p class="h4 u-m-0">Heading four — 1.375 to 1.75rem</p>
-                                <p class="h5 u-m-0">Heading five — 1.25 to 1.5rem</p>
-                                <p class="h6 u-m-0">Heading six — 1.125 to 1.25rem</p>
+                        <div class="styles__head">
+                            <div class="styles__head-text">
+                                <h2 class="u-mb-0">Colour</h2>
+                                <p class="u-mt-sm">Thirty-four primitives across five ramps plus black and white. Semantic roles alias these — never reference a primitive directly in a component.</p>
                             </div>
+                            <p class="caption">Brand · primitives</p>
+                        </div>
 
-                            <h3 class="h5">Transfer-safe ramp</h3>
-                            <p class="caption u-mb-lg">Webflow rejects <code>h1</code>–<code>h6</code> as class names, so anything pushed into the Designer uses the <code>.text-*</code> classes instead. They carry their own family, weight and leading, so they work on any element.</p>
-                            <div class="styles__stack u-mb-2xl">
-                                <span class="text-display-xl">.text-display-xl</span>
-                                <span class="text-display-lg">.text-display-lg</span>
-                                <span class="text-display-md">.text-display-md</span>
-                                <span class="text-heading-lg">.text-heading-lg</span>
-                                <span class="text-heading-md">.text-heading-md</span>
-                                <span class="text-heading-sm">.text-heading-sm</span>
+                        <h3 class="h5 u-mb-sm">Purple</h3>
+                        <div class="row u-mb-lg">
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch u-bg-page" style="background: var(--purple-05);"></div><p class="caption">purple-05</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--purple-10);"></div><p class="caption">purple-10</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--purple-20);"></div><p class="caption">purple-20</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--purple-40);"></div><p class="caption">purple-40</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--purple-60);"></div><p class="caption">purple-60</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--purple-80);"></div><p class="caption">purple-80</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--purple-100);"></div><p class="caption">purple-100</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--purple-500);"></div><p class="caption">purple-500</p></div>
+                        </div>
+
+                        <h3 class="h5 u-mb-sm">Lime</h3>
+                        <div class="row u-mb-lg">
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--lime-10);"></div><p class="caption">lime-10</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--lime-20);"></div><p class="caption">lime-20</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--lime-40);"></div><p class="caption">lime-40</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--lime-60);"></div><p class="caption">lime-60</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--lime-80);"></div><p class="caption">lime-80</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--lime-100);"></div><p class="caption">lime-100</p></div>
+                        </div>
+
+                        <h3 class="h5 u-mb-sm">Tomato</h3>
+                        <div class="row u-mb-lg">
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--tomato-10);"></div><p class="caption">tomato-10</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--tomato-20);"></div><p class="caption">tomato-20</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--tomato-40);"></div><p class="caption">tomato-40</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--tomato-60);"></div><p class="caption">tomato-60</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--tomato-80);"></div><p class="caption">tomato-80</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--tomato-100);"></div><p class="caption">tomato-100</p></div>
+                        </div>
+
+                        <h3 class="h5 u-mb-sm">Pink</h3>
+                        <div class="row u-mb-lg">
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--pink-10);"></div><p class="caption">pink-10</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--pink-20);"></div><p class="caption">pink-20</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--pink-40);"></div><p class="caption">pink-40</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--pink-60);"></div><p class="caption">pink-60</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--pink-80);"></div><p class="caption">pink-80</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--pink-100);"></div><p class="caption">pink-100</p></div>
+                        </div>
+
+                        <h3 class="h5 u-mb-sm">Grey &amp; neutral</h3>
+                        <div class="row">
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--grey-10);"></div><p class="caption">grey-10</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--grey-20);"></div><p class="caption">grey-20</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--grey-40);"></div><p class="caption">grey-40</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--grey-60);"></div><p class="caption">grey-60</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--grey-80);"></div><p class="caption">grey-80</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--grey-100);"></div><p class="caption">grey-100</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--white);"></div><p class="caption">white</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-6"><div class="styles__swatch" style="background: var(--black);"></div><p class="caption">black</p></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== Semantic roles ========== -->
+                <section class="section cc-sm" id="roles">
+                    <div class="container">
+                        <div class="styles__head">
+                            <div class="styles__head-text">
+                                <h2 class="u-mb-0">Semantic roles</h2>
+                                <p class="u-mt-sm">Eight roles, six stops each, aliasing the primitives above. Components reference these, never the raw ramps.</p>
                             </div>
+                            <p class="caption">Alias</p>
+                        </div>
 
-                            <h3 class="h5">Body and supporting styles</h3>
-                            <div class="row">
-                                <div class="col col-lg-8 col-md-12">
-                                    <p class="lede">Lede — a larger opening paragraph used to introduce a section. Muted by default so it sits below the headline in the hierarchy.</p>
-                                    <p>Body copy. The default paragraph size scales from 1rem to 1.125rem. Paragraphs carry a bottom margin in EM units so spacing stays proportional to the type size — do not remove it without reason.</p>
-                                    <p class="text-body-lg">Large body — <code>.text-body-lg</code>, the same fluid size as a default paragraph, for use on elements that are not <code>&lt;p&gt;</code>.</p>
-                                    <p class="text-body-sm">Small body — <code>.text-body-sm</code>, fixed at 0.875rem for dense UI text.</p>
-                                    <span class="eyebrow">Eyebrow — mono, uppercase, tracked</span>
-                                    <span class="eyebrow cc-accent">Eyebrow — accent variant</span>
-                                    <span class="caption u-mb-md">Caption — 0.8125rem, muted. Used for image credits and helper text.</span>
-                                    <span class="label">Label — 0.8125rem semibold, used for form and data labels.</span>
-                                    <blockquote class="u-mt-lg">A blockquote. Ranged left against a 2px accent rule, set at lede size.</blockquote>
+                        <div class="row">
+                            <div class="col col-lg-3 col-md-6 col-xs-12 u-mb-md">
+                                <p class="label u-mb-sm">Primary → Purple</p>
+                                <div class="styles__inline">
+                                    <div class="styles__swatch" style="background: var(--primary-10);"></div>
+                                    <div class="styles__swatch" style="background: var(--primary-20);"></div>
+                                    <div class="styles__swatch" style="background: var(--primary-40);"></div>
+                                    <div class="styles__swatch" style="background: var(--primary-60);"></div>
+                                    <div class="styles__swatch" style="background: var(--primary-80);"></div>
+                                    <div class="styles__swatch" style="background: var(--primary-100);"></div>
                                 </div>
                             </div>
-
-                            <h3 class="h5">Text utilities</h3>
-                            <div class="row row-gap-md">
-                                <div class="col col-lg-4 col-md-6 col-sm-12">
-                                    <p class="styles__demo u-text-centre">.u-text-centre</p>
+                            <div class="col col-lg-3 col-md-6 col-xs-12 u-mb-md">
+                                <p class="label u-mb-sm">Secondary → Pink</p>
+                                <div class="styles__inline">
+                                    <div class="styles__swatch" style="background: var(--secondary-10);"></div>
+                                    <div class="styles__swatch" style="background: var(--secondary-20);"></div>
+                                    <div class="styles__swatch" style="background: var(--secondary-40);"></div>
+                                    <div class="styles__swatch" style="background: var(--secondary-60);"></div>
+                                    <div class="styles__swatch" style="background: var(--secondary-80);"></div>
+                                    <div class="styles__swatch" style="background: var(--secondary-100);"></div>
                                 </div>
-                                <div class="col col-lg-4 col-md-6 col-sm-12">
-                                    <p class="styles__demo u-text-right">.u-text-right</p>
+                            </div>
+                            <div class="col col-lg-3 col-md-6 col-xs-12 u-mb-md">
+                                <p class="label u-mb-sm">Action → Lime</p>
+                                <div class="styles__inline">
+                                    <div class="styles__swatch" style="background: var(--action-10);"></div>
+                                    <div class="styles__swatch" style="background: var(--action-20);"></div>
+                                    <div class="styles__swatch" style="background: var(--action-40);"></div>
+                                    <div class="styles__swatch" style="background: var(--action-60);"></div>
+                                    <div class="styles__swatch" style="background: var(--action-80);"></div>
+                                    <div class="styles__swatch" style="background: var(--action-100);"></div>
                                 </div>
-                                <div class="col col-lg-4 col-md-6 col-sm-12">
-                                    <p class="styles__demo u-text-uppercase">.u-text-uppercase</p>
+                            </div>
+                            <div class="col col-lg-3 col-md-6 col-xs-12 u-mb-md">
+                                <p class="label u-mb-sm">Action-Dark → Grey</p>
+                                <div class="styles__inline">
+                                    <div class="styles__swatch" style="background: var(--action-dark-10);"></div>
+                                    <div class="styles__swatch" style="background: var(--action-dark-20);"></div>
+                                    <div class="styles__swatch" style="background: var(--action-dark-40);"></div>
+                                    <div class="styles__swatch" style="background: var(--action-dark-60);"></div>
+                                    <div class="styles__swatch" style="background: var(--action-dark-80);"></div>
+                                    <div class="styles__swatch" style="background: var(--action-dark-100);"></div>
                                 </div>
-                                <div class="col col-lg-4 col-md-6 col-sm-12">
-                                    <p class="styles__demo u-text-clamp-1">.u-text-clamp-1 truncates to a single line no matter how much copy is supplied here.</p>
+                            </div>
+                            <div class="col col-lg-3 col-md-6 col-xs-12 u-mb-md">
+                                <p class="label u-mb-sm">Information → Purple</p>
+                                <div class="styles__inline">
+                                    <div class="styles__swatch" style="background: var(--information-10);"></div>
+                                    <div class="styles__swatch" style="background: var(--information-20);"></div>
+                                    <div class="styles__swatch" style="background: var(--information-40);"></div>
+                                    <div class="styles__swatch" style="background: var(--information-60);"></div>
+                                    <div class="styles__swatch" style="background: var(--information-80);"></div>
+                                    <div class="styles__swatch" style="background: var(--information-100);"></div>
                                 </div>
-                                <div class="col col-lg-4 col-md-6 col-sm-12">
-                                    <p class="styles__demo u-text-clamp-2">.u-text-clamp-2 truncates to two lines no matter how much copy is supplied here in the source markup.</p>
+                            </div>
+                            <div class="col col-lg-3 col-md-6 col-xs-12 u-mb-md">
+                                <p class="label u-mb-sm">Success → Lime</p>
+                                <div class="styles__inline">
+                                    <div class="styles__swatch" style="background: var(--success-10);"></div>
+                                    <div class="styles__swatch" style="background: var(--success-20);"></div>
+                                    <div class="styles__swatch" style="background: var(--success-40);"></div>
+                                    <div class="styles__swatch" style="background: var(--success-60);"></div>
+                                    <div class="styles__swatch" style="background: var(--success-80);"></div>
+                                    <div class="styles__swatch" style="background: var(--success-100);"></div>
                                 </div>
-                                <div class="col col-lg-4 col-md-6 col-sm-12">
-                                    <p class="styles__demo u-font-mono">.u-font-mono</p>
+                            </div>
+                            <div class="col col-lg-3 col-md-6 col-xs-12 u-mb-md">
+                                <p class="label u-mb-sm">Error → Tomato</p>
+                                <div class="styles__inline">
+                                    <div class="styles__swatch" style="background: var(--error-10);"></div>
+                                    <div class="styles__swatch" style="background: var(--error-20);"></div>
+                                    <div class="styles__swatch" style="background: var(--error-40);"></div>
+                                    <div class="styles__swatch" style="background: var(--error-60);"></div>
+                                    <div class="styles__swatch" style="background: var(--error-80);"></div>
+                                    <div class="styles__swatch" style="background: var(--error-100);"></div>
+                                </div>
+                            </div>
+                            <div class="col col-lg-3 col-md-6 col-xs-12 u-mb-md">
+                                <p class="label u-mb-sm">Neutral → Grey</p>
+                                <div class="styles__inline">
+                                    <div class="styles__swatch" style="background: var(--neutral-10);"></div>
+                                    <div class="styles__swatch" style="background: var(--neutral-20);"></div>
+                                    <div class="styles__swatch" style="background: var(--neutral-40);"></div>
+                                    <div class="styles__swatch" style="background: var(--neutral-60);"></div>
+                                    <div class="styles__swatch" style="background: var(--neutral-80);"></div>
+                                    <div class="styles__swatch" style="background: var(--neutral-100);"></div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </section>
 
-                        <!-- 2. Colour -->
-                        <div class="styles__block" id="colour">
-                            <h2>Colour</h2>
-                            <p class="caption u-mb-xl">Swatch chips are the one place inline <code>style</code> is acceptable — they are one-off values, not layout. Everything else must use a class.</p>
-
-                            <h3 class="h5">Neutral ramp</h3>
-                            <div class="row row-gap-md u-mb-2xl">
-                                <div class="col col-lg-1 col-md-3 col-xs-4">
-                                    <div class="styles__swatch" style="background:#ffffff"></div>
-                                    <span class="caption">100 · #FFFFFF</span>
-                                </div>
-                                <div class="col col-lg-1 col-md-3 col-xs-4">
-                                    <div class="styles__swatch" style="background:#f5f5f4"></div>
-                                    <span class="caption">200 · #F5F5F4</span>
-                                </div>
-                                <div class="col col-lg-1 col-md-3 col-xs-4">
-                                    <div class="styles__swatch" style="background:#e7e6e4"></div>
-                                    <span class="caption">300 · #E7E6E4</span>
-                                </div>
-                                <div class="col col-lg-1 col-md-3 col-xs-4">
-                                    <div class="styles__swatch" style="background:#c9c7c3"></div>
-                                    <span class="caption">400 · #C9C7C3</span>
-                                </div>
-                                <div class="col col-lg-1 col-md-3 col-xs-4">
-                                    <div class="styles__swatch" style="background:#8a8781"></div>
-                                    <span class="caption">500 · #8A8781</span>
-                                </div>
-                                <div class="col col-lg-1 col-md-3 col-xs-4">
-                                    <div class="styles__swatch" style="background:#6b6862"></div>
-                                    <span class="caption">600 · #6B6862</span>
-                                </div>
-                                <div class="col col-lg-1 col-md-3 col-xs-4">
-                                    <div class="styles__swatch" style="background:#454340"></div>
-                                    <span class="caption">700 · #454340</span>
-                                </div>
-                                <div class="col col-lg-1 col-md-3 col-xs-4">
-                                    <div class="styles__swatch" style="background:#2a2927"></div>
-                                    <span class="caption">800 · #2A2927</span>
-                                </div>
-                                <div class="col col-lg-1 col-md-3 col-xs-4">
-                                    <div class="styles__swatch" style="background:#161615"></div>
-                                    <span class="caption">900 · #161615</span>
-                                </div>
+                <!-- ========== Mode ========== -->
+                <section class="section cc-sm" id="mode">
+                    <div class="container">
+                        <div class="styles__head">
+                            <div class="styles__head-text">
+                                <h2 class="u-mb-0">Modes</h2>
+                                <p class="u-mt-sm">Default and Invert. Add <code>cc-invert</code> to a <code>page-wrapper</code> or <code>section</code> and every mapped token flips. In Webflow this is a variable-mode collection, which cascades natively.</p>
                             </div>
+                            <p class="caption">Mapped</p>
+                        </div>
 
-                            <h3 class="h5">Brand</h3>
-                            <p class="caption u-mb-lg">Placeholders. Replace with the client's palette — primary at 7.1:1 against white, so keep any substitute above 4.5:1 for body text.</p>
-                            <div class="row row-gap-md u-mb-2xl">
-                                <div class="col col-lg-2 col-md-4 col-xs-6">
-                                    <div class="styles__swatch" style="background:#3d5a80"></div>
-                                    <span class="caption">Primary · #3D5A80</span>
-                                </div>
-                                <div class="col col-lg-2 col-md-4 col-xs-6">
-                                    <div class="styles__swatch" style="background:#2f4763"></div>
-                                    <span class="caption">Primary hover · #2F4763</span>
-                                </div>
-                                <div class="col col-lg-2 col-md-4 col-xs-6">
-                                    <div class="styles__swatch" style="background:#8fb3d9"></div>
-                                    <span class="caption">Primary light · #8FB3D9</span>
-                                </div>
-                                <div class="col col-lg-2 col-md-4 col-xs-6">
-                                    <div class="styles__swatch" style="background:#b3261e"></div>
-                                    <span class="caption">Destructive · #B3261E</span>
-                                </div>
-                                <div class="col col-lg-2 col-md-4 col-xs-6">
-                                    <div class="styles__swatch" style="background:#8f1e18"></div>
-                                    <span class="caption">Destructive hover · #8F1E18</span>
-                                </div>
-                            </div>
-
-                            <h3 class="h5">Mode</h3>
-                            <p class="caption u-mb-lg">Six <code>--mode-*</code> variables that every component consumes. Light is the default; <code>.cc-dark</code> on <code>.page-wrapper</code> or <code>.section</code> swaps them. In Webflow this is a <code>Mode</code> variable collection with two modes, applied to the <code>cc-dark</code> combo — it cascades to descendants natively.</p>
-                            <div class="row row-gap-md">
-                                <div class="col col-lg-6 col-md-12">
-                                    <div class="card">
-                                        <span class="eyebrow cc-accent">Light (default)</span>
-                                        <p class="card_title h5 u-m-0">Surface, text and stroke</p>
-                                        <p class="card_description">Body copy sits on <code>--mode-surface</code> inside a card, on <code>--mode-background</code> outside it.</p>
-                                        <div class="styles__inline">
-                                            <span class="tag">Tag</span>
-                                            <span class="tag cc-accent">Accent</span>
-                                            <span class="tag cc-outline">Outline</span>
-                                        </div>
+                        <div class="row">
+                            <div class="col col-lg-6 col-md-12">
+                                <div class="card">
+                                    <h3 class="card_title">Default</h3>
+                                    <p class="card_description">Body text on the default surface, with a secondary line beneath it.</p>
+                                    <div class="card_footer">
+                                        <button class="button cc-sm" type="button">Action</button>
+                                        <span class="tag">Tag</span>
                                     </div>
                                 </div>
-                                <div class="col col-lg-6 col-md-12">
-                                    <div class="section cc-dark u-p-0">
-                                        <div class="card">
-                                            <span class="eyebrow cc-accent">Dark (.cc-dark)</span>
-                                            <p class="card_title h5 u-m-0">Surface, text and stroke</p>
-                                            <p class="card_description">The same markup with no changes — only the mode variables differ.</p>
-                                            <div class="styles__inline">
-                                                <span class="tag">Tag</span>
-                                                <span class="tag cc-accent">Accent</span>
-                                                <span class="tag cc-outline">Outline</span>
-                                            </div>
-                                        </div>
+                            </div>
+                            <div class="col col-lg-6 col-md-12">
+                                <div class="section cc-invert u-p-0" style="padding: var(--space-md); border-radius: var(--radius-card);">
+                                    <h3 class="card_title">Invert</h3>
+                                    <p class="card_description">Body text on the inverted surface, with a secondary line beneath it.</p>
+                                    <div class="card_footer">
+                                        <button class="button cc-sm" type="button">Action</button>
+                                        <span class="tag">Tag</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </section>
 
-                        <!-- 3. Spacing -->
-                        <div class="styles__block" id="spacing">
-                            <h2>Spacing</h2>
-                            <p class="caption u-mb-xl">An 8px base scale. Section padding, grid gutters and component padding all derive from it, and it steps down at each breakpoint.</p>
-                            <div class="styles__stack">
-                                <div class="styles__inline"><span class="styles__spacer cc-xs"></span><span class="caption">xs · 0.25rem · 4px</span></div>
-                                <div class="styles__inline"><span class="styles__spacer cc-sm"></span><span class="caption">sm · 0.5rem · 8px</span></div>
-                                <div class="styles__inline"><span class="styles__spacer cc-md"></span><span class="caption">md · 1rem · 16px</span></div>
-                                <div class="styles__inline"><span class="styles__spacer cc-lg"></span><span class="caption">lg · 1.5rem · 24px</span></div>
-                                <div class="styles__inline"><span class="styles__spacer cc-xl"></span><span class="caption">xl · 2rem · 32px</span></div>
-                                <div class="styles__inline"><span class="styles__spacer cc-2xl"></span><span class="caption">2xl · 3rem · 48px</span></div>
-                                <div class="styles__inline"><span class="styles__spacer cc-3xl"></span><span class="caption">3xl · 4rem · 64px</span></div>
-                                <div class="styles__inline"><span class="styles__spacer cc-4xl"></span><span class="caption">4xl · 6rem · 96px</span></div>
+                <!-- ========== Typography ========== -->
+                <section class="section cc-sm" id="typography">
+                    <div class="container">
+                        <div class="styles__head">
+                            <div class="styles__head-text">
+                                <h2 class="u-mb-0">Typography</h2>
+                                <p class="u-mt-sm">Bringbold Nineties for display, Noto Sans Condensed Medium for headings, Noto Sans for body. Condensed is reached at font-weight 500 — Webflow serves it under the same family name.</p>
+                            </div>
+                            <p class="caption">Responsive · Desktop mode</p>
+                        </div>
+
+                        <h3 class="h5 u-mb-md">Display — Bringbold Nineties</h3>
+                        <div class="u-mb-xl">
+                            <span class="display-1">Display 1</span>
+                            <span class="display-2">Display 2</span>
+                            <span class="display-3">Display 3</span>
+                            <span class="display-4">Display 4</span>
+                            <span class="display-5">Display 5</span>
+                            <span class="display-6">Display 6</span>
+                        </div>
+
+                        <h3 class="h5 u-mb-md">Headings — Noto Sans Condensed</h3>
+                        <div class="u-mb-xl">
+                            <h1>Heading 1</h1>
+                            <h2>Heading 2</h2>
+                            <h3>Heading 3</h3>
+                            <h4>Heading 4</h4>
+                            <h5>Heading 5</h5>
+                            <h6>Heading 6</h6>
+                        </div>
+
+                        <h3 class="h5 u-mb-md">Body — Noto Sans</h3>
+                        <div class="styles__stack u-mb-xl">
+                            <p class="text-body-xl u-m-0">Body XL — regular</p>
+                            <p class="text-body-xl cc-semibold u-m-0">Body XL — semibold</p>
+                            <p class="text-body-lg u-m-0">Body L — regular</p>
+                            <p class="text-body-lg cc-semibold u-m-0">Body L — semibold</p>
+                            <p class="text-body-md u-m-0">Body M — regular</p>
+                            <p class="text-body-md cc-semibold u-m-0">Body M — semibold</p>
+                            <p class="text-body-sm u-m-0">Body S — regular</p>
+                            <p class="text-body-sm cc-semibold u-m-0">Body S — semibold</p>
+                            <p class="text-body-xs u-m-0">Body XS — regular</p>
+                            <p class="text-body-xs cc-semibold u-m-0">Body XS — semibold</p>
+                        </div>
+
+                        <h3 class="h5 u-mb-md">Caption &amp; supporting</h3>
+                        <div class="styles__stack">
+                            <span class="caption">Caption — regular</span>
+                            <span class="caption cc-semibold">Caption — semibold</span>
+                            <span class="eyebrow">Eyebrow — uppercased caption</span>
+                            <span class="label">Label</span>
+                            <p class="lede u-m-0">Lede — the large intro paragraph used beneath a page heading.</p>
+                            <blockquote>A blockquote, set at Body XL with an action-coloured rule.</blockquote>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== Spacing ========== -->
+                <section class="section cc-sm" id="spacing">
+                    <div class="container">
+                        <div class="styles__head">
+                            <div class="styles__head-text">
+                                <h2 class="u-mb-0">Spacing</h2>
+                                <p class="u-mt-sm">Fourteen steps aliasing the numeric Scale ramp. Values from <code>md</code> upward change per breakpoint — the bars below reflect the current viewport.</p>
+                            </div>
+                            <p class="caption">Responsive</p>
+                        </div>
+
+                        <div class="styles__row"><span class="styles__key">space-0</span><div class="styles__bar" style="width: var(--space-0);"></div></div>
+                        <div class="styles__row"><span class="styles__key">space-4xs</span><div class="styles__bar" style="width: var(--space-4xs);"></div></div>
+                        <div class="styles__row"><span class="styles__key">space-3xs</span><div class="styles__bar" style="width: var(--space-3xs);"></div></div>
+                        <div class="styles__row"><span class="styles__key">space-2xs</span><div class="styles__bar" style="width: var(--space-2xs);"></div></div>
+                        <div class="styles__row"><span class="styles__key">space-xs</span><div class="styles__bar" style="width: var(--space-xs);"></div></div>
+                        <div class="styles__row"><span class="styles__key">space-sm</span><div class="styles__bar" style="width: var(--space-sm);"></div></div>
+                        <div class="styles__row"><span class="styles__key">space-md</span><div class="styles__bar" style="width: var(--space-md);"></div></div>
+                        <div class="styles__row"><span class="styles__key">space-lg</span><div class="styles__bar" style="width: var(--space-lg);"></div></div>
+                        <div class="styles__row"><span class="styles__key">space-xl</span><div class="styles__bar" style="width: var(--space-xl);"></div></div>
+                        <div class="styles__row"><span class="styles__key">space-1x</span><div class="styles__bar" style="width: var(--space-1x);"></div></div>
+                        <div class="styles__row"><span class="styles__key">space-2x</span><div class="styles__bar" style="width: var(--space-2x);"></div></div>
+                        <div class="styles__row"><span class="styles__key">space-3x</span><div class="styles__bar" style="width: var(--space-3x);"></div></div>
+                        <div class="styles__row"><span class="styles__key">space-4x</span><div class="styles__bar" style="width: var(--space-4x);"></div></div>
+                        <div class="styles__row"><span class="styles__key">space-margin</span><div class="styles__bar" style="width: var(--space-margin);"></div></div>
+                    </div>
+                </section>
+
+                <!-- ========== Radii & borders ========== -->
+                <section class="section cc-sm" id="radii">
+                    <div class="container">
+                        <div class="styles__head">
+                            <div class="styles__head-text">
+                                <h2 class="u-mb-0">Radii &amp; borders</h2>
+                                <p class="u-mt-sm">Nine radius steps and four border widths. Radii from <code>md</code> upward shrink on mobile.</p>
+                            </div>
+                            <p class="caption">Responsive · Alias</p>
+                        </div>
+
+                        <div class="row u-mb-lg">
+                            <div class="col col-lg-1 col-md-3 col-xs-4"><div class="styles__swatch" style="background: var(--purple-40); border-radius: var(--radius-none);"></div><p class="caption">none</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-4"><div class="styles__swatch" style="background: var(--purple-40); border-radius: var(--radius-2xs);"></div><p class="caption">2xs</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-4"><div class="styles__swatch" style="background: var(--purple-40); border-radius: var(--radius-xs);"></div><p class="caption">xs</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-4"><div class="styles__swatch" style="background: var(--purple-40); border-radius: var(--radius-sm);"></div><p class="caption">sm</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-4"><div class="styles__swatch" style="background: var(--purple-40); border-radius: var(--radius-md);"></div><p class="caption">md</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-4"><div class="styles__swatch" style="background: var(--purple-40); border-radius: var(--radius-lg);"></div><p class="caption">lg</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-4"><div class="styles__swatch" style="background: var(--purple-40); border-radius: var(--radius-xl);"></div><p class="caption">xl</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-4"><div class="styles__swatch" style="background: var(--purple-40); border-radius: var(--radius-2xl);"></div><p class="caption">2xl</p></div>
+                            <div class="col col-lg-1 col-md-3 col-xs-4"><div class="styles__swatch" style="background: var(--purple-40); border-radius: var(--radius-full);"></div><p class="caption">full</p></div>
+                        </div>
+
+                        <div class="styles__row"><span class="styles__key">border-width-none</span><div class="u-w-100" style="border-top: var(--border-width-none) solid var(--border-dark);"></div></div>
+                        <div class="styles__row"><span class="styles__key">border-width-sm</span><div class="u-w-100" style="border-top: var(--border-width-sm) solid var(--border-dark);"></div></div>
+                        <div class="styles__row"><span class="styles__key">border-width-md</span><div class="u-w-100" style="border-top: var(--border-width-md) solid var(--border-dark);"></div></div>
+                        <div class="styles__row"><span class="styles__key">border-width-lg</span><div class="u-w-100" style="border-top: var(--border-width-lg) solid var(--border-dark);"></div></div>
+                    </div>
+                </section>
+
+                <!-- ========== Primitives ========== -->
+                <section class="section cc-sm" id="primitives">
+                    <div class="container">
+                        <div class="styles__head">
+                            <div class="styles__head-text">
+                                <h2 class="u-mb-0">Primitives</h2>
+                                <p class="u-mt-sm">Foundation components only. Anything project-specific belongs in <code>components.html</code> via the component skill.</p>
+                            </div>
+                            <p class="caption">Base classes</p>
+                        </div>
+
+                        <h3 class="h5 u-mb-sm">Buttons</h3>
+                        <div class="styles__inline u-mb-md">
+                            <button class="button" type="button">Primary</button>
+                            <button class="button cc-dark" type="button">Dark</button>
+                            <button class="button cc-outline" type="button">Outline</button>
+                            <button class="button cc-disabled" type="button" disabled>Disabled</button>
+                        </div>
+                        <div class="styles__inline u-mb-xl">
+                            <button class="button cc-sm" type="button">Small</button>
+                            <button class="button" type="button">Medium</button>
+                            <button class="button cc-lg" type="button">Large</button>
+                        </div>
+
+                        <h3 class="h5 u-mb-sm">Tags</h3>
+                        <div class="styles__inline u-mb-xl">
+                            <span class="tag">Default</span>
+                            <span class="tag cc-action">Action</span>
+                            <span class="tag cc-outline">Outline</span>
+                            <span class="tag cc-round">Round</span>
+                        </div>
+
+                        <h3 class="h5 u-mb-sm">Icons</h3>
+                        <div class="styles__inline u-mb-xl">
+                            <span class="icon cc-sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                            <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                            <span class="icon cc-lg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                            <span class="icon cc-action"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+                            <span class="icon cc-headings"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></span>
+                        </div>
+
+                        <h3 class="h5 u-mb-sm">Form</h3>
+                        <div class="row u-mb-xl">
+                            <div class="col col-lg-6 col-md-12">
+                                <form class="form" onsubmit="return false;">
+                                    <div class="form_field">
+                                        <label class="form_label" for="sg-name">Name</label>
+                                        <input class="input" id="sg-name" type="text" placeholder="Jane Doe">
+                                        <span class="form_help">Your full name, as you would like it to appear.</span>
+                                    </div>
+                                    <div class="form_field">
+                                        <label class="form_label" for="sg-email">Email</label>
+                                        <input class="input cc-error" id="sg-email" type="email" placeholder="jane@example.com">
+                                        <span class="form_error">Please enter a valid email address.</span>
+                                    </div>
+                                    <div class="form_field">
+                                        <label class="form_label" for="sg-msg">Message</label>
+                                        <textarea class="input cc-textarea" id="sg-msg" placeholder="How can we help?"></textarea>
+                                    </div>
+                                    <div class="form_option">
+                                        <input class="checkbox" id="sg-check" type="checkbox" checked>
+                                        <label class="form_option-label" for="sg-check">Subscribe to the newsletter</label>
+                                    </div>
+                                    <div class="form_option">
+                                        <input class="radio" id="sg-radio" type="radio" name="sg-radio-group" checked>
+                                        <label class="form_option-label" for="sg-radio">Yes, contact me</label>
+                                    </div>
+                                    <button class="button" type="submit">Submit</button>
+                                </form>
                             </div>
                         </div>
 
-                        <!-- 4. Buttons -->
-                        <div class="styles__block" id="buttons">
-                            <h2>Buttons</h2>
-                            <p class="caption u-mb-xl">One base class, variants as <code>cc-</code> combos. The base class must always be present — Webflow only applies combo styles when it is.</p>
-
-                            <h3 class="h5">Variants</h3>
-                            <div class="styles__inline u-mb-2xl">
-                                <button class="button" type="button">Primary</button>
-                                <button class="button cc-secondary" type="button">Secondary</button>
-                                <button class="button cc-ghost" type="button">Ghost</button>
-                                <button class="button cc-destructive" type="button">Destructive</button>
-                                <button class="button" type="button" disabled>Disabled</button>
+                        <h3 class="h5 u-mb-sm">Cards</h3>
+                        <div class="row">
+                            <div class="col col-lg-4 col-md-6 col-xs-12">
+                                <div class="card">
+                                    <span class="tag">Default</span>
+                                    <h4 class="card_title">Card title</h4>
+                                    <p class="card_description">A short description sitting on the default surface.</p>
+                                    <div class="card_footer"><button class="button cc-sm" type="button">Read more</button></div>
+                                </div>
                             </div>
-
-                            <h3 class="h5">Sizes</h3>
-                            <div class="styles__inline u-mb-2xl">
-                                <button class="button cc-sm" type="button">Small</button>
-                                <button class="button" type="button">Default</button>
-                                <button class="button cc-lg" type="button">Large</button>
+                            <div class="col col-lg-4 col-md-6 col-xs-12">
+                                <div class="card cc-action">
+                                    <span class="tag cc-outline">Action</span>
+                                    <h4 class="card_title">Card title</h4>
+                                    <p class="card_description cc-inverse">A short description sitting on the action surface.</p>
+                                    <div class="card_footer"><button class="button cc-dark cc-sm" type="button">Read more</button></div>
+                                </div>
                             </div>
-
-                            <h3 class="h5">Full width</h3>
-                            <div class="row">
-                                <div class="col col-lg-4 col-md-6 col-sm-12">
-                                    <button class="button cc-full" type="button">Full width</button>
+                            <div class="col col-lg-4 col-md-6 col-xs-12">
+                                <div class="card cc-dark">
+                                    <span class="tag cc-action">Dark</span>
+                                    <h4 class="card_title" style="color: var(--white);">Card title</h4>
+                                    <p class="card_description cc-inverse">A short description sitting on the dark surface.</p>
+                                    <div class="card_footer"><button class="button cc-sm" type="button">Read more</button></div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </section>
 
-                        <!-- 5. Forms -->
-                        <div class="styles__block" id="forms">
-                            <h2>Forms</h2>
-                            <p class="caption u-mb-xl">Every input needs an associated <code>&lt;label&gt;</code>. Checkbox, radio and toggle are native inputs with <code>appearance: none</code>, so they stay keyboard-accessible.</p>
-                            <div class="row">
-                                <div class="col col-lg-6 col-md-12">
-                                    <form class="form">
-                                        <div class="form_field">
-                                            <label class="form_label" for="sg-name">Full name</label>
-                                            <input class="input" id="sg-name" name="name" type="text" placeholder="Ada Lovelace">
-                                        </div>
-
-                                        <div class="form_field">
-                                            <label class="form_label" for="sg-email">Email address</label>
-                                            <input class="input" id="sg-email" name="email" type="email" placeholder="ada@example.com">
-                                            <span class="form_help">We only use this to reply to your enquiry.</span>
-                                        </div>
-
-                                        <div class="form_field">
-                                            <label class="form_label" for="sg-invalid">Error state</label>
-                                            <input class="input cc-error" id="sg-invalid" name="invalid" type="text" value="Not a valid value" aria-describedby="sg-invalid-error">
-                                            <span class="form_error" id="sg-invalid-error">Enter a value in the correct format.</span>
-                                        </div>
-
-                                        <div class="form_field">
-                                            <label class="form_label" for="sg-enquiry">Enquiry type</label>
-                                            <select class="select" id="sg-enquiry" name="enquiry">
-                                                <option>New project</option>
-                                                <option>Support</option>
-                                                <option>Something else</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form_field">
-                                            <label class="form_label" for="sg-message">Message</label>
-                                            <textarea class="input cc-textarea" id="sg-message" name="message" placeholder="Tell us about the project"></textarea>
-                                        </div>
-
-                                        <div class="form_field">
-                                            <span class="form_label">Checkbox</span>
-                                            <div class="form_option">
-                                                <input class="checkbox" id="sg-terms" name="terms" type="checkbox" checked>
-                                                <label class="form_option-label" for="sg-terms">I agree to the terms of use</label>
-                                            </div>
-                                            <div class="form_option">
-                                                <input class="checkbox" id="sg-updates" name="updates" type="checkbox">
-                                                <label class="form_option-label" for="sg-updates">Send me occasional updates</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="form_field">
-                                            <span class="form_label">Radio</span>
-                                            <div class="form_option">
-                                                <input class="radio" id="sg-radio-a" name="contact" type="radio" checked>
-                                                <label class="form_option-label" for="sg-radio-a">Contact me by email</label>
-                                            </div>
-                                            <div class="form_option">
-                                                <input class="radio" id="sg-radio-b" name="contact" type="radio">
-                                                <label class="form_option-label" for="sg-radio-b">Contact me by phone</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="form_field">
-                                            <span class="form_label">Toggle</span>
-                                            <div class="form_option">
-                                                <input class="toggle" id="sg-toggle" name="marketing" type="checkbox" checked>
-                                                <label class="form_option-label" for="sg-toggle">Marketing preferences</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="form_field">
-                                            <button class="button" type="submit">Submit</button>
-                                        </div>
-                                    </form>
-                                </div>
+                <!-- ========== Grid ========== -->
+                <section class="section cc-sm" id="grid">
+                    <div class="container">
+                        <div class="styles__head">
+                            <div class="styles__head-text">
+                                <h2 class="u-mb-0">Grid</h2>
+                                <p class="u-mt-sm">Twelve columns, flexbox, desktop-first. Breakpoints cascade at 991px, 767px and 479px.</p>
                             </div>
+                            <p class="caption">Layout</p>
                         </div>
 
-                        <!-- 6. Icons -->
-                        <div class="styles__block" id="icons">
-                            <h2>Icons</h2>
-                            <p class="caption u-mb-xl">Inline SVG with no <code>width</code>/<code>height</code> attributes — only a <code>viewBox</code>. Size comes from the <code>.icon</code> wrapper, colour from <code>currentColor</code>, and every icon carries a <code>&lt;title&gt;</code> for screen readers.</p>
-                            <div class="styles__inline">
-                                <span class="icon cc-sm">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
-                                        <title>Search</title>
-                                        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
-                                        <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
-                                </span>
-                                <span class="icon">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
-                                        <title>Arrow right</title>
-                                        <path d="M4 12h16m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </span>
-                                <span class="icon cc-lg">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
-                                        <title>Check</title>
-                                        <path d="m4 12.5 5 5 11-11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                    </svg>
-                                </span>
-                                <span class="icon cc-accent">
-                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
-                                        <title>Plus</title>
-                                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                                    </svg>
-                                </span>
-                                <span class="caption">.icon.cc-sm · .icon · .icon.cc-lg · .icon.cc-accent</span>
+                        <div class="row u-mb-md">
+                            <div class="col col-lg-1"><div class="styles__demo">1</div></div>
+                            <div class="col col-lg-1"><div class="styles__demo">1</div></div>
+                            <div class="col col-lg-1"><div class="styles__demo">1</div></div>
+                            <div class="col col-lg-1"><div class="styles__demo">1</div></div>
+                            <div class="col col-lg-1"><div class="styles__demo">1</div></div>
+                            <div class="col col-lg-1"><div class="styles__demo">1</div></div>
+                            <div class="col col-lg-1"><div class="styles__demo">1</div></div>
+                            <div class="col col-lg-1"><div class="styles__demo">1</div></div>
+                            <div class="col col-lg-1"><div class="styles__demo">1</div></div>
+                            <div class="col col-lg-1"><div class="styles__demo">1</div></div>
+                            <div class="col col-lg-1"><div class="styles__demo">1</div></div>
+                            <div class="col col-lg-1"><div class="styles__demo">1</div></div>
+                        </div>
+                        <div class="row u-mb-md">
+                            <div class="col col-lg-6 col-md-12"><div class="styles__demo">6</div></div>
+                            <div class="col col-lg-6 col-md-12"><div class="styles__demo">6</div></div>
+                        </div>
+                        <div class="row u-mb-md">
+                            <div class="col col-lg-4 col-md-6 col-xs-12"><div class="styles__demo">4</div></div>
+                            <div class="col col-lg-4 col-md-6 col-xs-12"><div class="styles__demo">4</div></div>
+                            <div class="col col-lg-4 col-md-12 col-xs-12"><div class="styles__demo">4</div></div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-lg-8 col-md-12"><div class="styles__demo">8 — content</div></div>
+                            <div class="col col-lg-4 col-md-12"><div class="styles__demo">4 — sidebar</div></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== Token index ========== -->
+                <section class="section cc-sm cc-last" id="tokens">
+                    <div class="container">
+                        <div class="styles__head">
+                            <div class="styles__head-text">
+                                <h2 class="u-mb-0">Token index</h2>
+                                <p class="u-mt-sm">Every custom property declared in <code>styles.css</code>, grouped by Figma collection. Delete the <code>:root</code> block once these exist as Webflow Variables — Webflow owns <code>:root</code>.</p>
                             </div>
+                            <p class="caption">262 source variables</p>
                         </div>
 
-                        <!-- 7. Cards -->
-                        <div class="styles__block" id="cards">
-                            <h2>Cards</h2>
-                            <p class="caption u-mb-xl">Element classes use the underscore scope separator (<code>.card_title</code>), variants use <code>cc-</code>. Never mix a custom class with utility classes on the same element.</p>
-                            <div class="row row-gap-lg">
-                                <div class="col col-lg-3 col-md-6 col-sm-12">
-                                    <article class="card">
-                                        <!-- Placeholder art. On a real page .card_image is an <img> with an
-                                             explicit width attribute — Webflow needs it to reserve space. -->
-                                        <svg class="card_image u-aspect-16x9" viewBox="0 0 16 9" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" role="img">
-                                            <title>Placeholder image</title>
-                                            <rect width="16" height="9" fill="currentColor" opacity="0.12"/>
-                                        </svg>
-                                        <span class="tag">Default</span>
-                                        <h3 class="card_title">Card</h3>
-                                        <p class="card_description">The base card — surface background, 1px stroke, large radius.</p>
-                                        <div class="card_footer"><a class="button cc-sm cc-ghost" href="#cards">Read more</a></div>
-                                    </article>
-                                </div>
-                                <div class="col col-lg-3 col-md-6 col-sm-12">
-                                    <article class="card cc-featured">
-                                        <span class="tag cc-inverse">Featured</span>
-                                        <h3 class="card_title">cc-featured</h3>
-                                        <p class="card_description cc-inverse">Primary fill for the one card that should lead the set.</p>
-                                        <div class="card_footer"><a class="button cc-sm cc-secondary" href="#cards">Read more</a></div>
-                                    </article>
-                                </div>
-                                <div class="col col-lg-3 col-md-6 col-sm-12">
-                                    <article class="card cc-compact">
-                                        <span class="tag">Compact</span>
-                                        <h3 class="card_title h6">cc-compact</h3>
-                                        <p class="card_description">Tighter padding and gap for dense lists.</p>
-                                    </article>
-                                </div>
-                                <div class="col col-lg-3 col-md-6 col-sm-12">
-                                    <article class="card cc-raised">
-                                        <span class="tag">Raised</span>
-                                        <h3 class="card_title">cc-raised</h3>
-                                        <p class="card_description">Adds the card shadow token. Combine with cc-flat for a shadow-only card.</p>
-                                    </article>
-                                </div>
-                            </div>
-                        </div>
+                        <h3 class="h5 u-mb-sm">Typography — Desktop / Tablet / Mobile</h3>
+                        <table class="styles__table u-mb-xl">
+                            <thead><tr><th>Token</th><th>Desktop</th><th>Tablet</th><th>Mobile</th></tr></thead>
+                            <tbody>
+                                <tr><td>display-1-size</td><td>7.5rem</td><td>5rem</td><td>3.75rem</td></tr>
+                                <tr><td>display-2-size</td><td>5.375rem</td><td>4.25rem</td><td>2.9375rem</td></tr>
+                                <tr><td>display-3-size</td><td>5rem</td><td>3.75rem</td><td>2.5rem</td></tr>
+                                <tr><td>display-4-size</td><td>4rem</td><td>3rem</td><td>2rem</td></tr>
+                                <tr><td>display-5-size</td><td>3rem</td><td>2.5rem</td><td>2rem</td></tr>
+                                <tr><td>display-6-size</td><td>2.5rem</td><td>2rem</td><td>1.75rem</td></tr>
+                                <tr><td>h1-size</td><td>5rem</td><td>3.75rem</td><td>3rem</td></tr>
+                                <tr><td>h2-size</td><td>3.75rem</td><td>3rem</td><td>2.5rem</td></tr>
+                                <tr><td>h3-size</td><td>3rem</td><td>2.25rem</td><td>2rem</td></tr>
+                                <tr><td>h4-size</td><td>2rem</td><td>1.75rem</td><td>1.75rem</td></tr>
+                                <tr><td>h5-size</td><td>1.5rem</td><td>1.5rem</td><td>1.5rem</td></tr>
+                                <tr><td>h6-size</td><td>1.25rem</td><td>1.25rem</td><td>1.25rem</td></tr>
+                                <tr><td>body-xl-size</td><td>1.5rem</td><td>1.375rem</td><td>1.25rem</td></tr>
+                                <tr><td>body-lg-size</td><td>1.25rem</td><td>1.25rem</td><td>1.25rem</td></tr>
+                                <tr><td>body-md-size</td><td>1rem</td><td>1rem</td><td>1rem</td></tr>
+                                <tr><td>body-sm-size</td><td>0.875rem</td><td>0.875rem</td><td>0.875rem</td></tr>
+                                <tr><td>body-xs-size</td><td>0.75rem</td><td>0.75rem</td><td>0.75rem</td></tr>
+                                <tr><td>caption-size</td><td>0.875rem</td><td>0.875rem</td><td>0.875rem</td></tr>
+                            </tbody>
+                        </table>
 
-                        <!-- 8. Grid -->
-                        <div class="styles__block cc-last" id="grid">
-                            <h2>Grid</h2>
-                            <p class="caption u-mb-xl">Twelve columns on flexbox. Always <code>.row</code> &gt; <code>.col</code>, with a width class per breakpoint: <code>-lg-</code> desktop, <code>-md-</code> tablet (≤991px), <code>-sm-</code> mobile landscape (≤767px), <code>-xs-</code> mobile portrait (≤479px). Narrow the window to watch these reflow.</p>
+                        <h3 class="h5 u-mb-sm">Spacing — Desktop / Tablet / Mobile</h3>
+                        <table class="styles__table u-mb-xl">
+                            <thead><tr><th>Token</th><th>Desktop</th><th>Tablet</th><th>Mobile</th></tr></thead>
+                            <tbody>
+                                <tr><td>space-0</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>space-4xs</td><td>2px</td><td>2px</td><td>2px</td></tr>
+                                <tr><td>space-3xs</td><td>4px</td><td>4px</td><td>4px</td></tr>
+                                <tr><td>space-2xs</td><td>8px</td><td>8px</td><td>8px</td></tr>
+                                <tr><td>space-xs</td><td>12px</td><td>12px</td><td>12px</td></tr>
+                                <tr><td>space-sm</td><td>16px</td><td>16px</td><td>16px</td></tr>
+                                <tr><td>space-md</td><td>24px</td><td>24px</td><td>20px</td></tr>
+                                <tr><td>space-lg</td><td>40px</td><td>32px</td><td>24px</td></tr>
+                                <tr><td>space-xl</td><td>60px</td><td>36px</td><td>28px</td></tr>
+                                <tr><td>space-1x</td><td>80px</td><td>40px</td><td>40px</td></tr>
+                                <tr><td>space-2x</td><td>96px</td><td>56px</td><td>48px</td></tr>
+                                <tr><td>space-3x</td><td>120px</td><td>64px</td><td>56px</td></tr>
+                                <tr><td>space-4x</td><td>240px</td><td>80px</td><td>80px</td></tr>
+                                <tr><td>space-margin</td><td>80px</td><td>40px</td><td>8px</td></tr>
+                            </tbody>
+                        </table>
 
-                            <h3 class="h5">Twelve columns</h3>
-                            <div class="row row-gap-sm u-mb-xl">
-                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">1</p></div>
-                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">2</p></div>
-                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">3</p></div>
-                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">4</p></div>
-                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">5</p></div>
-                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">6</p></div>
-                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">7</p></div>
-                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">8</p></div>
-                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">9</p></div>
-                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">10</p></div>
-                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">11</p></div>
-                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">12</p></div>
-                            </div>
+                        <h3 class="h5 u-mb-sm">Radii — Desktop / Tablet / Mobile</h3>
+                        <table class="styles__table u-mb-xl">
+                            <thead><tr><th>Token</th><th>Desktop</th><th>Tablet</th><th>Mobile</th></tr></thead>
+                            <tbody>
+                                <tr><td>radius-none</td><td>0</td><td>0</td><td>0</td></tr>
+                                <tr><td>radius-2xs</td><td>2px</td><td>2px</td><td>2px</td></tr>
+                                <tr><td>radius-xs</td><td>4px</td><td>4px</td><td>4px</td></tr>
+                                <tr><td>radius-sm</td><td>8px</td><td>8px</td><td>8px</td></tr>
+                                <tr><td>radius-md</td><td>16px</td><td>16px</td><td>12px</td></tr>
+                                <tr><td>radius-lg</td><td>24px</td><td>24px</td><td>16px</td></tr>
+                                <tr><td>radius-xl</td><td>40px</td><td>40px</td><td>24px</td></tr>
+                                <tr><td>radius-2xl</td><td>80px</td><td>80px</td><td>32px</td></tr>
+                                <tr><td>radius-full</td><td>360px</td><td>360px</td><td>360px</td></tr>
+                            </tbody>
+                        </table>
 
-                            <h3 class="h5">Content and sidebar</h3>
-                            <div class="row u-mb-xl">
-                                <div class="col col-lg-8 col-md-12"><p class="styles__demo u-m-0">col-lg-8 col-md-12</p></div>
-                                <div class="col col-lg-4 col-md-12"><p class="styles__demo u-m-0">col-lg-4 col-md-12</p></div>
-                            </div>
-
-                            <h3 class="h5">Offset</h3>
-                            <div class="row u-mb-xl">
-                                <div class="col col-lg-6 col-lg-offset-3 col-md-12"><p class="styles__demo u-m-0">col-lg-6 col-lg-offset-3</p></div>
-                            </div>
-
-                            <h3 class="h5">Row modifiers</h3>
-                            <div class="row row-justify-between u-mb-md">
-                                <div class="col col-shrink"><p class="styles__demo u-m-0">row-justify-between</p></div>
-                                <div class="col col-shrink"><p class="styles__demo u-m-0">col-shrink</p></div>
-                            </div>
-                            <div class="row row-justify-centre u-mb-md">
-                                <div class="col col-shrink"><p class="styles__demo u-m-0">row-justify-centre</p></div>
-                            </div>
-                            <div class="row row-align-centre row-gap-0">
-                                <div class="col col-lg-4"><p class="styles__demo u-m-0">row-align-centre</p></div>
-                                <div class="col col-lg-4"><p class="styles__demo u-pt-xl u-pb-xl u-m-0">taller column</p></div>
-                                <div class="col col-lg-4"><p class="styles__demo u-m-0">row-gap-0</p></div>
-                            </div>
-                        </div>
+                        <h3 class="h5 u-mb-sm">Mapped — Default / Invert</h3>
+                        <table class="styles__table">
+                            <thead><tr><th>Token</th><th>Default</th><th>Invert</th></tr></thead>
+                            <tbody>
+                                <tr><td>text-headings</td><td>grey-100</td><td>white</td></tr>
+                                <tr><td>text-body</td><td>neutral-80</td><td>neutral-10</td></tr>
+                                <tr><td>text-body-secondary</td><td>neutral-60</td><td>neutral-20</td></tr>
+                                <tr><td>text-action</td><td>action-100</td><td>action-100</td></tr>
+                                <tr><td>text-action-hover</td><td>information-100</td><td>information-100</td></tr>
+                                <tr><td>text-disabled</td><td>neutral-40</td><td>neutral-40</td></tr>
+                                <tr><td>text-on-action</td><td>neutral-100</td><td>white</td></tr>
+                                <tr><td>icon-headings</td><td>grey-100</td><td>white</td></tr>
+                                <tr><td>icon-body</td><td>neutral-80</td><td>neutral-10</td></tr>
+                                <tr><td>icon-on-action</td><td>neutral-100</td><td>neutral-100</td></tr>
+                                <tr><td>surface-page</td><td>purple-10</td><td>neutral-100</td></tr>
+                                <tr><td>surface-default</td><td>white</td><td>black</td></tr>
+                                <tr><td>surface-action</td><td>action-100</td><td>action-100</td></tr>
+                                <tr><td>surface-action-hover</td><td>information-100</td><td>information-100</td></tr>
+                                <tr><td>surface-action-dark</td><td>action-dark-100</td><td>action-dark-100</td></tr>
+                                <tr><td>surface-disabled</td><td>neutral-10</td><td>neutral-80</td></tr>
+                                <tr><td>surface-information</td><td>information-20</td><td>information-100</td></tr>
+                                <tr><td>surface-success</td><td>success-20</td><td>success-100</td></tr>
+                                <tr><td>surface-error</td><td>error-20</td><td>error-100</td></tr>
+                                <tr><td>border-primary</td><td>white</td><td>neutral-80</td></tr>
+                                <tr><td>border-secondary</td><td>neutral-20</td><td>neutral-20</td></tr>
+                                <tr><td>border-tertiary</td><td>neutral-10</td><td>neutral-80</td></tr>
+                                <tr><td>border-action</td><td>action-100</td><td>action-100</td></tr>
+                                <tr><td>border-dark</td><td>grey-100</td><td>grey-100</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </section>
             </main>
 
             <footer class="footer">
                 <div class="container cc-footer">
-                    <p class="footer_copy">© 2026 [BRAND-NAME]. All rights reserved.</p>
+                    <p class="footer_copy">GeekyGrowth — style guide</p>
                     <ul class="footer_menu">
+                        <li class="footer_item"><a class="footer_link" href="#palette">Colour</a></li>
                         <li class="footer_item"><a class="footer_link" href="#typography">Typography</a></li>
-                        <li class="footer_item"><a class="footer_link" href="#colour">Colour</a></li>
-                        <li class="footer_item"><a class="footer_link" href="#grid">Grid</a></li>
+                        <li class="footer_item"><a class="footer_link" href="#spacing">Spacing</a></li>
+                        <li class="footer_item"><a class="footer_link" href="#tokens">Tokens</a></li>
                     </ul>
                 </div>
             </footer>

@@ -1,169 +1,504 @@
 /* ============================================================
-   [BRAND-NAME] — style guide v0.1  (MAST-derived Webflow baseline)
+   GeekyGrowth — style guide v1.0
 
-   This is the unbranded starting point for a new client project.
-   Everything here is deliberately neutral: greyscale palette, system
-   font stacks, one placeholder accent. Run /styleguide to overwrite the
-   token block with the client's real design system.
+   Source: Figma "GeekyGrowth Studio" (v9WoUQObfoDYDz1lg6cgH7)
+   Imported: 17 August 2026
+   Tokens read directly from the file's four local variable collections:
+     Brand (67) · Alias (54) · Mapped (45) · Responsive (96)
 
    Conventions (see AGENTS.md):
    - Base classes are unprefixed        .section .container .row .col .button
-   - Combo variants use cc-             .button.cc-ghost
+   - Combo variants use cc-             .button.cc-dark
    - Utilities use u- and !important    .u-text-centre
-   - British spelling                   --colour-*, .u-text-centre
+   - British spelling                   .u-text-centre, --colour-*
    - Desktop-first breakpoints          991px / 767px / 479px
    - Selectors stay Webflow-flat        no descendant/child/:nth-child rules
      outside the mode cascade and the custom-code bucket at the foot of
      this file.
+
+   Figma → CSS mapping notes:
+   - Figma "Responsive" has three modes (Desktop 1440 / Tablet 780 /
+     Mobile 390). CSS needs four breakpoints, so Tablet lands on 991px,
+     Mobile on 767px, and 479px inherits Mobile. No values are invented.
+   - Figma "Mapped" has Default / Invert modes → :root and
+     .page-wrapper.cc-invert below. In Webflow these become a variable
+     collection with two modes, which cascades natively.
+   - Figma models headings as family "Noto Sans" + style "Condensed
+     Medium". Webflow serves that face under the SAME family name at
+     font-weight 500, so --font-headings and --font-body are both
+     "Noto Sans" and condensed is reached via --weight-condensed-medium.
    ============================================================ */
 
 /* ------------------------------------------------------------
    Fonts
 
-   The baseline ships system stacks so it renders with no network
-   dependency. Replace per project:
+   Served from the live Webflow site's CDN, so the static build renders
+   with the exact production files and needs no local assets. Webflow
+   asset URLs are per-file hashed and stable across republishes.
 
-   - Google fonts: add a <link> to each page head AND add the family in
-     Webflow → Site Settings → Fonts → Google Fonts. They do NOT transfer
-     via MCP.
-   - Custom fonts: upload .woff2 in Webflow → Site Settings → Fonts, then
-     match the EXACT Webflow-normalised family name in --font-* below —
-     it is rarely the same string as the design's name.
+   NOTE: the Noto Sans faces are .ttf. Re-uploading them as .woff2 in
+   Webflow → Project Settings → Fonts would cut roughly 40–50% off the
+   font payload. Update the URLs here if that happens.
 
-   @font-face {
-       font-family: 'Client Display';
-       src: url('assets/fonts/client-display.woff2') format('woff2');
-       font-weight: 500;
-       font-display: swap;
-   }
+   Bringbold Nineties ships Regular + Oblique only — there is no bold
+   display face available.
    ------------------------------------------------------------ */
+@font-face {
+    font-family: "Bringbold Nineties";
+    src: url("https://cdn.prod.website-files.com/6a0cd504dc4bd1b9a0eed697/6a0f6cd27d73a9fa66cd976e_Bringbold%20Nineties%20Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Bringbold Nineties";
+    src: url("https://cdn.prod.website-files.com/6a0cd504dc4bd1b9a0eed697/6a0f6cd29f9533201553b22e_Bringbold%20Nineties%20Oblique.woff2") format("woff2");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("https://cdn.prod.website-files.com/6a0cd504dc4bd1b9a0eed697/6a0f6e1ef7bf24344d01248d_NotoSans-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("https://cdn.prod.website-files.com/6a0cd504dc4bd1b9a0eed697/6a0f6e1ee3d810ad61aab774_NotoSans-Italic.ttf") format("truetype");
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Weight 500 is the CONDENSED face — this is how Webflow registered it. */
+@font-face {
+    font-family: "Noto Sans";
+    src: url("https://cdn.prod.website-files.com/6a0cd504dc4bd1b9a0eed697/6a218001060d45ac2041dc55_NotoSans_Condensed-Medium.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("https://cdn.prod.website-files.com/6a0cd504dc4bd1b9a0eed697/6a2180016d273aba5f19a961_NotoSans_Condensed-MediumItalic.ttf") format("truetype");
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("https://cdn.prod.website-files.com/6a0cd504dc4bd1b9a0eed697/6a0f6e1e3711ce2132e5178a_NotoSans-SemiBold.ttf") format("truetype");
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("https://cdn.prod.website-files.com/6a0cd504dc4bd1b9a0eed697/6a0f6e1eb294a8c56275eff5_NotoSans-SemiBoldItalic.ttf") format("truetype");
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("https://cdn.prod.website-files.com/6a0cd504dc4bd1b9a0eed697/6a0f6e1f73e56e301b2fc4f4_NotoSans-Bold.ttf") format("truetype");
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Noto Sans";
+    src: url("https://cdn.prod.website-files.com/6a0cd504dc4bd1b9a0eed697/6a0f6e1eb5cb48e6c7fbce74_NotoSans-BoldItalic.ttf") format("truetype");
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
 
 /* ============================================================
    Tokens
 
-   These mirror Webflow Variables, which use Title Case with spaces in
-   the Designer (`Colour Primary` → `--colour-primary`). Webflow owns
-   :root on the live site — never hand-declare custom properties there.
-   This :root block exists only so the static build renders standalone.
+   These mirror Webflow Variables. Webflow owns :root on the live site —
+   once the Variables are recreated in the Designer, DELETE this :root
+   block. It exists only so the static build renders standalone.
+
+   Tier order matches Figma: primitives → semantic aliases → mapped
+   (mode-aware) → responsive.
    ============================================================ */
 :root {
-    /* Colour — neutral ramp */
-    --colour-neutral-100: #ffffff;
-    --colour-neutral-200: #f5f5f4;
-    --colour-neutral-300: #e7e6e4;
-    --colour-neutral-400: #c9c7c3;
-    --colour-neutral-500: #8a8781;
-    --colour-neutral-600: #6b6862;
-    --colour-neutral-700: #454340;
-    --colour-neutral-800: #2a2927;
-    --colour-neutral-900: #161615;
+    /* --- Brand: colour primitives ------------------------------ */
+    --purple-05: #f9f8fe;
+    --purple-10: #f8f7fc;
+    --purple-20: #e9e4fc;
+    --purple-40: #d2c9f9;
+    --purple-60: #bcadf5;
+    --purple-80: #a592f2;
+    --purple-100: #8f77ef;
+    --purple-500: #393060;
 
-    /* Colour — brand (placeholders) */
-    --colour-primary: #3d5a80;
-    --colour-primary-hover: #2f4763;
-    --colour-primary-light: #8fb3d9;
-    --colour-primary-contrast: #ffffff;
-    --colour-destructive: #b3261e;
-    --colour-destructive-hover: #8f1e18;
+    --lime-10: #fdfef9;
+    --lime-20: #f8fde8;
+    --lime-40: #f1fbd0;
+    --lime-60: #e9f9b9;
+    --lime-80: #e2f7a1;
+    --lime-100: #dbf58a;
 
-    /* Typography — families */
-    --font-heading: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    --tomato-10: #fef6f3;
+    --tomato-20: #fbdbcf;
+    --tomato-40: #f7b7a0;
+    --tomato-60: #f39370;
+    --tomato-80: #ef6f41;
+    --tomato-100: #eb4b11;
 
-    /* Typography — fluid size bounds.
-       Documentation tokens: the clamp() rules below carry these as
-       literals because Webflow's style API silently coerces var()
-       inside clamp()/calc() to a bare variable binding. If you change a
-       bound here, change the matching literal too. */
-    --font-size-h1-min: 2.8rem;
-    --font-size-h1-max: 5.5rem;
-    --font-size-h2-min: 2rem;
-    --font-size-h2-max: 3.8rem;
-    --font-size-h3-min: 1.5rem;
-    --font-size-h3-max: 2.3rem;
-    --font-size-h4-min: 1.375rem;
-    --font-size-h4-max: 1.75rem;
-    --font-size-h5-min: 1.25rem;
-    --font-size-h5-max: 1.5rem;
-    --font-size-h6-min: 1.125rem;
-    --font-size-h6-max: 1.25rem;
-    --font-size-body-min: 1rem;
-    --font-size-body-max: 1.125rem;
+    --pink-10: #fffafd;
+    --pink-20: #ffedf9;
+    --pink-40: #ffdaf3;
+    --pink-60: #fec8ec;
+    --pink-80: #feb5e6;
+    --pink-100: #fea3e0;
 
-    /* Typography — fixed sizes */
-    --font-size-body-sm: 0.875rem;
-    --font-size-caption: 0.8125rem;
-    --font-size-eyebrow: 0.75rem;
-    --font-size-label: 0.8125rem;
+    --grey-10: #f3f3f4;
+    --grey-20: #cecdd2;
+    --grey-40: #9d9ba6;
+    --grey-60: #6d6979;
+    --grey-80: #3c384d;
+    --grey-100: #0b0620;
 
-    /* Typography — line heights */
-    --line-height-display: 1.05;
-    --line-height-heading: 1.2;
-    --line-height-body: 1.55;
-    --line-height-small: 1.35;
+    --white: #ffffff;
+    --black: #000000;
 
-    /* Typography — weights */
-    --font-weight-regular: 400;
-    --font-weight-medium: 500;
-    --font-weight-semibold: 600;
-    --font-weight-bold: 700;
+    /* --- Brand: typography primitives -------------------------- */
+    --font-display: "Bringbold Nineties", Georgia, "Times New Roman", serif;
+    --font-headings: "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-body: "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
-    /* Typography — tracking */
-    --tracking-display: -0.02em;
-    --tracking-heading: -0.01em;
-    --tracking-wide: 0.08em;
+    --weight-regular: 400;
+    --weight-condensed-medium: 500;
+    --weight-semibold: 600;
+    --weight-bold: 700;
 
-    /* Spacing — 8px base */
-    --space-xs: 0.25rem;
-    --space-sm: 0.5rem;
-    --space-md: 1rem;
-    --space-lg: 1.5rem;
-    --space-xl: 2rem;
-    --space-2xl: 3rem;
-    --space-3xl: 4rem;
-    --space-4xl: 6rem;
+    /* --- Brand: numeric scale ----------------------------------
+       Figma's Scale ramp, converted px → rem at a 16px base. Every
+       spacing and radius token below aliases one of these. */
+    --scale-0: 0;
+    --scale-25: 0.0625rem;  /* 1px  */
+    --scale-50: 0.125rem;   /* 2px  */
+    --scale-100: 0.25rem;   /* 4px  */
+    --scale-200: 0.5rem;    /* 8px  */
+    --scale-300: 0.75rem;   /* 12px */
+    --scale-400: 1rem;      /* 16px */
+    --scale-500: 1.25rem;   /* 20px */
+    --scale-600: 1.5rem;    /* 24px */
+    --scale-700: 1.75rem;   /* 28px */
+    --scale-800: 2rem;      /* 32px */
+    --scale-900: 2.25rem;   /* 36px */
+    --scale-1000: 2.5rem;   /* 40px */
+    --scale-1100: 2.75rem;  /* 44px */
+    --scale-1200: 3rem;     /* 48px */
+    --scale-1300: 3.25rem;  /* 52px */
+    --scale-1400: 3.5rem;   /* 56px */
+    --scale-1500: 3.75rem;  /* 60px */
+    --scale-1600: 4rem;     /* 64px */
+    --scale-1700: 4.5rem;   /* 72px */
+    --scale-1800: 5rem;     /* 80px */
+    --scale-1900: 6rem;     /* 96px */
+    --scale-2000: 7.5rem;   /* 120px */
+    --scale-2100: 15rem;    /* 240px */
+    --scale-2200: 22.5rem;  /* 360px */
 
-    /* Radius */
-    --radius-none: 0;
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --radius-lg: 16px;
-    --radius-full: 999px;
+    /* --- Alias: semantic colour roles --------------------------- */
+    --primary-10: var(--purple-05);
+    --primary-20: var(--purple-20);
+    --primary-40: var(--purple-40);
+    --primary-60: var(--purple-60);
+    --primary-80: var(--purple-80);
+    --primary-100: var(--purple-100);
 
-    /* Layout */
-    --grid-columns: 12;
-    --grid-gutter: 1.5rem;
-    --grid-margin: 5rem;
+    --secondary-10: var(--pink-10);
+    --secondary-20: var(--pink-20);
+    --secondary-40: var(--pink-40);
+    --secondary-60: var(--pink-60);
+    --secondary-80: var(--pink-80);
+    --secondary-100: var(--pink-100);
+
+    --information-10: var(--purple-05);
+    --information-20: var(--purple-20);
+    --information-40: var(--purple-40);
+    --information-60: var(--purple-60);
+    --information-80: var(--purple-80);
+    --information-100: var(--purple-100);
+
+    --action-10: var(--lime-10);
+    --action-20: var(--lime-20);
+    --action-40: var(--lime-40);
+    --action-60: var(--lime-60);
+    --action-80: var(--lime-80);
+    --action-100: var(--lime-100);
+
+    --action-dark-10: var(--grey-10);
+    --action-dark-20: var(--grey-20);
+    --action-dark-40: var(--grey-40);
+    --action-dark-60: var(--grey-60);
+    --action-dark-80: var(--grey-80);
+    --action-dark-100: var(--grey-100);
+
+    --error-10: var(--tomato-10);
+    --error-20: var(--tomato-20);
+    --error-40: var(--tomato-40);
+    --error-60: var(--tomato-60);
+    --error-80: var(--tomato-80);
+    --error-100: var(--tomato-100);
+
+    --success-10: var(--lime-10);
+    --success-20: var(--lime-20);
+    --success-40: var(--lime-40);
+    --success-60: var(--lime-60);
+    --success-80: var(--lime-80);
+    --success-100: var(--lime-100);
+
+    --neutral-10: var(--grey-10);
+    --neutral-20: var(--grey-20);
+    --neutral-40: var(--grey-40);
+    --neutral-60: var(--grey-60);
+    --neutral-80: var(--grey-80);
+    --neutral-100: var(--grey-100);
+    --neutral-white: var(--white);
+    --neutral-black: var(--black);
+
+    /* --- Alias: border widths ---------------------------------- */
+    --border-width-none: var(--scale-0);
+    --border-width-sm: var(--scale-25);
+    --border-width-md: var(--scale-50);
+    --border-width-lg: var(--scale-100);
+
+    /* --- Mapped: DEFAULT mode ----------------------------------
+       Every mode-aware token. The Invert mode overrides only what
+       changes — see .page-wrapper.cc-invert below. */
+    --text-headings: var(--grey-100);
+    --text-body: var(--neutral-80);
+    --text-body-secondary: var(--neutral-60);
+    --text-action: var(--action-100);
+    --text-action-hover: var(--information-100);
+    --text-disabled: var(--neutral-40);
+    --text-information: var(--information-100);
+    --text-success: var(--success-100);
+    --text-error: var(--error-100);
+    --text-on-action: var(--neutral-100);
+
+    --icon-headings: var(--grey-100);
+    --icon-body: var(--neutral-80);
+    --icon-body-secondary: var(--neutral-60);
+    --icon-action: var(--action-100);
+    --icon-action-hover: var(--information-100);
+    --icon-disabled: var(--neutral-40);
+    --icon-information: var(--information-100);
+    --icon-success: var(--success-100);
+    --icon-error: var(--error-100);
+    --icon-on-action: var(--neutral-100);
+
+    --surface-page: var(--purple-10);
+    --surface-default: var(--neutral-white);
+    --surface-action: var(--action-100);
+    --surface-action-hover: var(--information-100);
+    --surface-action-dark: var(--action-dark-100);
+    --surface-action-dark-hover: var(--black);
+    --surface-disabled: var(--neutral-10);
+    --surface-information: var(--information-20);
+    --surface-success: var(--success-20);
+    --surface-error: var(--error-20);
+    --surface-pattern-lime: var(--lime-100);
+    --surface-pattern-purple: var(--purple-100);
+    --surface-pattern-tomato: var(--tomato-100);
+    --surface-pattern-pink: var(--pink-100);
+    --surface-pattern-dark: var(--purple-500);
+
+    --border-primary: var(--neutral-white);
+    --border-secondary: var(--neutral-20);
+    /* Figma spells this "Border/Tetriary" — corrected here. Rename the
+       Figma variable to "Tertiary" before the Webflow transfer so the
+       two stay in sync. */
+    --border-tertiary: var(--neutral-10);
+    --border-action: var(--action-100);
+    --border-action-hover: var(--action-100);
+    --border-disabled: var(--neutral-20);
+    --border-information: var(--information-60);
+    --border-success: var(--success-100);
+    --border-error: var(--error-100);
+    --border-dark: var(--grey-100);
+
+    /* --- Responsive: typography (Desktop) -----------------------
+       Line heights are unitless ratios; Figma's 57.599998-style values
+       are float artefacts of ratio-based leading. Letter spacing stays
+       in px to match Figma and Webflow 1:1. */
+    --display-1-size: 7.5rem;
+    --display-2-size: 5.375rem;
+    --display-3-size: 5rem;
+    --display-4-size: 4rem;
+    --display-5-size: 3rem;
+    --display-6-size: 2.5rem;
+    --display-line-height: 1;
+    --display-letter-spacing: 0;
+
+    --h1-size: 5rem;
+    --h2-size: 3.75rem;
+    --h3-size: 3rem;
+    --h4-size: 2rem;
+    --h5-size: 1.5rem;
+    --h6-size: 1.25rem;
+
+    --h1-line-height: 1.2;
+    --h2-line-height: 1.2;
+    --h3-line-height: 1.2;
+    --h4-line-height: 1.44;
+    --h5-line-height: 1.2;
+    --h6-line-height: 1.2;
+
+    --h1-letter-spacing: -2px;
+    --h2-letter-spacing: -2px;
+    --h3-letter-spacing: -2px;
+    --h4-letter-spacing: -1px;
+    --h5-letter-spacing: -0.5px;
+    --h6-letter-spacing: 0;
+
+    --body-xl-size: 1.5rem;
+    --body-lg-size: 1.25rem;
+    --body-md-size: 1rem;
+    --body-sm-size: 0.875rem;
+    --body-xs-size: 0.75rem;
+
+    --body-xl-line-height: 1.3333;
+    --body-lg-line-height: 1.3;
+    --body-md-line-height: 1.5;
+    --body-sm-line-height: 1.2857;
+    --body-xs-line-height: 1.1667;
+
+    --caption-size: 0.875rem;
+    --caption-line-height: 1;
+    --caption-letter-spacing: 2px;
+
+    /* --- Responsive: spacing (Desktop) -------------------------- */
+    --space-0: var(--scale-0);
+    --space-4xs: var(--scale-50);
+    --space-3xs: var(--scale-100);
+    --space-2xs: var(--scale-200);
+    --space-xs: var(--scale-300);
+    --space-sm: var(--scale-400);
+    --space-md: var(--scale-600);
+    --space-lg: var(--scale-1000);
+    --space-xl: var(--scale-1500);
+    --space-1x: var(--scale-1800);
+    --space-2x: var(--scale-1900);
+    --space-3x: var(--scale-2000);
+    --space-4x: var(--scale-2100);
+    --space-margin: var(--scale-1800);
+
+    /* --- Responsive: radii (Desktop) ---------------------------- */
+    --radius-none: var(--scale-0);
+    --radius-2xs: var(--scale-50);
+    --radius-xs: var(--scale-100);
+    --radius-sm: var(--scale-200);
+    --radius-md: var(--scale-400);
+    --radius-lg: var(--scale-600);
+    --radius-xl: var(--scale-1000);
+    --radius-2xl: var(--scale-1800);
+    --radius-full: var(--scale-2200);
+
+    /* --- Layout ------------------------------------------------
+       Container max-width matches Figma's Desktop device size (1440px). */
     --container-max-width: 90rem;
-    --section-padding: var(--space-4xl);
-    --gap-main: var(--space-lg);
+    --grid-columns: 12;
+    --grid-gutter: var(--space-md);
+    --grid-margin: var(--space-margin);
+    --section-padding: var(--space-3x);
+    --gap-main: var(--space-md);
     --gap-md: var(--space-md);
     --gap-sm: var(--space-sm);
     --nav-height: 4.5rem;
 
-    /* Component */
-    --radius-button: var(--radius-md);
-    --radius-card: var(--radius-lg);
-    --radius-input: var(--radius-md);
-    --button-height: 2.75rem;
-    --button-height-sm: 2.25rem;
-    --button-height-lg: 3.25rem;
-    --input-height: 3rem;
-    --shadow-card: 0 1px 2px rgba(22, 22, 21, 0.06), 0 8px 24px rgba(22, 22, 21, 0.06);
-    --transition-base: 160ms ease;
+    /* --- Component tokens --------------------------------------
+       Radii and border widths come from Figma's button frame.
 
-    /* Mode — light is the default.
-       In Webflow these six are a `Mode` variable collection with Light
-       (default) and Dark modes; .cc-dark carries the Dark mode and
-       cascades to descendants natively. */
-    --mode-background: var(--colour-neutral-100);
-    --mode-surface: var(--colour-neutral-200);
-    --mode-text: var(--colour-neutral-900);
-    --mode-text-muted: var(--colour-neutral-600);
-    --mode-text-dim: var(--colour-neutral-500);
-    --mode-stroke: var(--colour-neutral-300);
-    --mode-accent: var(--colour-primary);
+       Buttons and inputs carry NO fixed height by design — height is
+       derived from em-based padding plus font-size, so they grow with
+       the type when a visitor zooms or raises their default font size.
+       Do not reintroduce a height token here.
+
+       --transition-base is inherited from the upstream template
+       baseline; motion is out of scope in Figma for now. */
+    --radius-button: var(--radius-sm);
+    --radius-card: var(--radius-lg);
+    --radius-input: var(--radius-sm);
+    --button-border-width: var(--border-width-md);
+    --button-padding-block: 0.75em;
+    --button-padding-inline: 1.5em;
+    --transition-base: 160ms ease;
+}
+
+/* ============================================================
+   Mode — Invert
+
+   The ONE descendant pattern allowed in this file: Webflow reproduces
+   it natively with variable modes, so long as descendants consume the
+   mapped tokens rather than literals. Mirrors Figma's Mapped collection
+   Invert mode — only the tokens that actually change are redeclared.
+   ============================================================ */
+.page-wrapper.cc-invert,
+.section.cc-invert {
+    --text-headings: var(--neutral-white);
+    --text-body: var(--neutral-10);
+    --text-body-secondary: var(--neutral-20);
+    --text-on-action: var(--neutral-white);
+
+    --icon-headings: var(--neutral-white);
+    --icon-body: var(--neutral-10);
+    --icon-body-secondary: var(--neutral-20);
+
+    --surface-page: var(--neutral-100);
+    --surface-default: var(--neutral-black);
+    --surface-disabled: var(--neutral-80);
+    --surface-information: var(--information-100);
+    --surface-success: var(--success-100);
+    --surface-error: var(--error-100);
+
+    --border-primary: var(--neutral-80);
+    --border-tertiary: var(--neutral-80);
+
+    background: var(--surface-page);
+    color: var(--text-body);
+}
+
+/* Re-assert Default mode inside an inverted ancestor. */
+.section.cc-default {
+    --text-headings: var(--grey-100);
+    --text-body: var(--neutral-80);
+    --text-body-secondary: var(--neutral-60);
+    --text-on-action: var(--neutral-100);
+
+    --icon-headings: var(--grey-100);
+    --icon-body: var(--neutral-80);
+    --icon-body-secondary: var(--neutral-60);
+
+    --surface-page: var(--purple-10);
+    --surface-default: var(--neutral-white);
+    --surface-disabled: var(--neutral-10);
+    --surface-information: var(--information-20);
+    --surface-success: var(--success-20);
+    --surface-error: var(--error-20);
+
+    --border-primary: var(--neutral-white);
+    --border-tertiary: var(--neutral-10);
+
+    background: var(--surface-page);
+    color: var(--text-body);
 }
 
 /* ============================================================
@@ -182,12 +517,12 @@ html {
 
 body {
     margin: 0;
-    background: var(--mode-background);
-    color: var(--mode-text);
+    background: var(--surface-page);
+    color: var(--text-body);
     font-family: var(--font-body);
-    font-size: clamp(1rem, 0.9375rem + 0.21vw, 1.125rem);
-    line-height: var(--line-height-body);
-    font-weight: var(--font-weight-regular);
+    font-size: var(--body-md-size);
+    line-height: var(--body-md-line-height);
+    font-weight: var(--weight-regular);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
@@ -213,23 +548,9 @@ button {
 
 hr {
     height: 1px;
-    margin: var(--space-xl) 0;
+    margin: var(--space-md) 0;
     border: 0;
-    background: var(--mode-stroke);
-}
-
-code,
-kbd,
-samp,
-pre {
-    font-family: var(--font-mono);
-    font-size: 0.875em;
-}
-
-code {
-    padding: 0.1em 0.35em;
-    background: var(--mode-surface);
-    border-radius: var(--radius-sm);
+    background: var(--border-secondary);
 }
 
 /* ============================================================
@@ -237,8 +558,8 @@ code {
    ============================================================ */
 .page-wrapper {
     min-height: 100vh;
-    background: var(--mode-background);
-    color: var(--mode-text);
+    background: var(--surface-page);
+    color: var(--text-body);
 }
 
 .main-wrapper {
@@ -261,55 +582,21 @@ code {
     z-index: 9999;
     width: auto;
     height: auto;
-    padding: 0.5rem 1rem;
-    background: var(--colour-primary);
-    color: var(--colour-primary-contrast);
+    padding: var(--space-2xs) var(--space-sm);
+    background: var(--surface-action);
+    color: var(--text-on-action);
     border-radius: var(--radius-sm);
-}
-
-/* ============================================================
-   Mode — .cc-dark opt-in
-
-   The ONE descendant pattern allowed in this file: Webflow reproduces
-   it natively with variable modes, so long as descendants consume the
-   --mode-* variables rather than literals.
-   ============================================================ */
-.page-wrapper.cc-dark,
-.section.cc-dark {
-    --mode-background: var(--colour-neutral-900);
-    --mode-surface: var(--colour-neutral-800);
-    --mode-text: var(--colour-neutral-100);
-    --mode-text-muted: var(--colour-neutral-400);
-    --mode-text-dim: var(--colour-neutral-500);
-    --mode-stroke: var(--colour-neutral-700);
-    --mode-accent: var(--colour-primary-light);
-
-    background: var(--mode-background);
-    color: var(--mode-text);
-}
-
-/* Re-invert back to light inside a dark ancestor. */
-.section.cc-light {
-    --mode-background: var(--colour-neutral-100);
-    --mode-surface: var(--colour-neutral-200);
-    --mode-text: var(--colour-neutral-900);
-    --mode-text-muted: var(--colour-neutral-600);
-    --mode-text-dim: var(--colour-neutral-500);
-    --mode-stroke: var(--colour-neutral-300);
-    --mode-accent: var(--colour-primary);
-
-    background: var(--mode-background);
-    color: var(--mode-text);
 }
 
 /* ============================================================
    Typography
 
-   Two parallel sets, on purpose:
+   Three parallel sets, on purpose:
    - h1–h6 elements and .h1–.h6 classes, so semantic level and visual
      size can differ (<h3 class="h2">).
    - .text-* ramp — the transfer-safe set. Webflow REJECTS "h1".."h6" as
      class names, so anything pushed into the Designer uses .text-*.
+   - .display-* for the Bringbold display face.
    ============================================================ */
 h1,
 h2,
@@ -318,122 +605,197 @@ h4,
 h5,
 h6 {
     margin: 0 0 0.4em;
-    color: var(--mode-text);
-    font-family: var(--font-heading);
-    font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-heading);
-    letter-spacing: var(--tracking-heading);
+    color: var(--text-headings);
+    font-family: var(--font-headings);
+    font-weight: var(--weight-condensed-medium);
     text-wrap: balance;
 }
 
 h1,
-.text-display-xl {
-    font-size: clamp(2.8rem, 1.45rem + 4.5vw, 5.5rem);
-    line-height: var(--line-height-display);
-    letter-spacing: var(--tracking-display);
+.h1,
+.text-heading-1 {
+    font-size: var(--h1-size);
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--h1-letter-spacing);
 }
 
 h2,
-.text-display-lg {
-    font-size: clamp(2rem, 1.1rem + 3vw, 3.8rem);
-    line-height: var(--line-height-display);
-    letter-spacing: var(--tracking-display);
+.h2,
+.text-heading-2 {
+    font-size: var(--h2-size);
+    line-height: var(--h2-line-height);
+    letter-spacing: var(--h2-letter-spacing);
 }
 
 h3,
-.text-display-md {
-    font-size: clamp(1.5rem, 1.1rem + 1.33vw, 2.3rem);
+.h3,
+.text-heading-3 {
+    font-size: var(--h3-size);
+    line-height: var(--h3-line-height);
+    letter-spacing: var(--h3-letter-spacing);
 }
 
 h4,
-.text-heading-lg {
-    font-size: clamp(1.375rem, 1.1875rem + 0.63vw, 1.75rem);
+.h4,
+.text-heading-4 {
+    font-size: var(--h4-size);
+    line-height: var(--h4-line-height);
+    letter-spacing: var(--h4-letter-spacing);
 }
 
 h5,
-.text-heading-md {
-    font-size: clamp(1.25rem, 1.125rem + 0.42vw, 1.5rem);
+.h5,
+.text-heading-5 {
+    font-size: var(--h5-size);
+    line-height: var(--h5-line-height);
+    letter-spacing: var(--h5-letter-spacing);
 }
 
 h6,
-.text-heading-sm {
-    font-size: clamp(1.125rem, 1.0625rem + 0.21vw, 1.25rem);
+.h6,
+.text-heading-6 {
+    font-size: var(--h6-size);
+    line-height: var(--h6-line-height);
+    letter-spacing: var(--h6-letter-spacing);
 }
 
-/* The .text-* ramp carries its own family/weight/leading so it works on
-   any element, not just headings. */
-.text-display-xl,
-.text-display-lg,
-.text-display-md,
-.text-heading-lg,
-.text-heading-md,
-.text-heading-sm {
+/* Display ramp — Bringbold Nineties. Regular weight only. */
+.display-1,
+.display-2,
+.display-3,
+.display-4,
+.display-5,
+.display-6,
+.text-display-1,
+.text-display-2,
+.text-display-3,
+.text-display-4,
+.text-display-5,
+.text-display-6 {
     display: block;
-    margin: 0;
-    font-family: var(--font-heading);
-    font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-heading);
-    letter-spacing: var(--tracking-heading);
-    color: var(--mode-text);
+    margin: 0 0 0.4em;
+    color: var(--text-headings);
+    font-family: var(--font-display);
+    font-weight: var(--weight-regular);
+    line-height: var(--display-line-height);
+    letter-spacing: var(--display-letter-spacing);
+    text-wrap: balance;
 }
 
-.text-body-lg {
-    font-size: clamp(1rem, 0.9375rem + 0.21vw, 1.125rem);
-    line-height: var(--line-height-body);
+.display-1,
+.text-display-1 {
+    font-size: var(--display-1-size);
 }
 
-.text-body-sm {
-    font-size: var(--font-size-body-sm);
-    line-height: var(--line-height-body);
+.display-2,
+.text-display-2 {
+    font-size: var(--display-2-size);
+}
+
+.display-3,
+.text-display-3 {
+    font-size: var(--display-3-size);
+}
+
+.display-4,
+.text-display-4 {
+    font-size: var(--display-4-size);
+}
+
+.display-5,
+.text-display-5 {
+    font-size: var(--display-5-size);
+}
+
+.display-6,
+.text-display-6 {
+    font-size: var(--display-6-size);
 }
 
 p {
     margin: 0 0 1em;
 }
 
+.text-body-xl {
+    font-size: var(--body-xl-size);
+    line-height: var(--body-xl-line-height);
+}
+
+.text-body-lg,
 .lede {
-    font-size: clamp(1.125rem, 1rem + 0.42vw, 1.375rem);
-    line-height: var(--line-height-body);
-    color: var(--mode-text-muted);
+    font-size: var(--body-lg-size);
+    line-height: var(--body-lg-line-height);
+}
+
+.text-body-md {
+    font-size: var(--body-md-size);
+    line-height: var(--body-md-line-height);
+}
+
+.text-body-sm {
+    font-size: var(--body-sm-size);
+    line-height: var(--body-sm-line-height);
+}
+
+.text-body-xs {
+    font-size: var(--body-xs-size);
+    line-height: var(--body-xs-line-height);
+}
+
+/* Semibold pairs — Figma defines a -semibold variant for every body
+   size and for caption. */
+.text-body-xl.cc-semibold,
+.text-body-lg.cc-semibold,
+.text-body-md.cc-semibold,
+.text-body-sm.cc-semibold,
+.text-body-xs.cc-semibold,
+.caption.cc-semibold {
+    font-weight: var(--weight-semibold);
+}
+
+.lede {
+    color: var(--text-body-secondary);
+}
+
+/* Caption — 14px with 2px tracking. .eyebrow is the same token set with
+   uppercasing applied; Figma has no separate eyebrow token. */
+.caption,
+.text-caption {
+    display: block;
+    font-size: var(--caption-size);
+    line-height: var(--caption-line-height);
+    letter-spacing: var(--caption-letter-spacing);
+    color: var(--text-body-secondary);
 }
 
 .eyebrow {
     display: block;
-    margin: 0 0 var(--space-sm);
-    font-family: var(--font-mono);
-    font-size: var(--font-size-eyebrow);
-    font-weight: var(--font-weight-medium);
-    line-height: var(--line-height-small);
-    letter-spacing: var(--tracking-wide);
+    margin: 0 0 var(--space-2xs);
+    font-size: var(--caption-size);
+    line-height: var(--caption-line-height);
+    letter-spacing: var(--caption-letter-spacing);
     text-transform: uppercase;
-    color: var(--mode-text-muted);
+    color: var(--text-body-secondary);
 }
 
-.eyebrow.cc-accent {
-    color: var(--mode-accent);
-}
-
-.caption {
-    display: block;
-    font-size: var(--font-size-caption);
-    line-height: var(--line-height-small);
-    color: var(--mode-text-muted);
+.eyebrow.cc-action {
+    color: var(--text-action);
 }
 
 .label {
     display: block;
-    font-size: var(--font-size-label);
-    font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-small);
-    color: var(--mode-text);
+    font-size: var(--body-sm-size);
+    font-weight: var(--weight-semibold);
+    line-height: var(--body-sm-line-height);
+    color: var(--text-headings);
 }
 
 blockquote {
-    margin: 0 0 var(--space-lg);
-    padding-left: var(--space-lg);
-    border-left: 2px solid var(--mode-accent);
-    font-size: clamp(1.125rem, 1rem + 0.42vw, 1.375rem);
-    line-height: var(--line-height-body);
+    margin: 0 0 var(--space-md);
+    padding-left: var(--space-md);
+    border-left: var(--border-width-md) solid var(--border-action);
+    font-size: var(--body-xl-size);
+    line-height: var(--body-xl-line-height);
 }
 
 /* ============================================================
@@ -441,16 +803,16 @@ blockquote {
    ============================================================ */
 .section {
     padding: var(--section-padding) 0;
-    background: var(--mode-background);
-    color: var(--mode-text);
+    background: var(--surface-page);
+    color: var(--text-body);
 }
 
 .section.cc-sm {
-    padding: var(--space-2xl) 0;
+    padding: var(--space-1x) 0;
 }
 
 .section.cc-lg {
-    padding: calc(var(--section-padding) * 1.5) 0;
+    padding: var(--space-4x) 0;
 }
 
 .section.cc-flush {
@@ -622,7 +984,7 @@ blockquote {
 }
 
 .row-gap-lg {
-    row-gap: var(--space-xl);
+    row-gap: var(--space-lg);
 }
 
 /* ============================================================
@@ -637,31 +999,29 @@ blockquote {
     position: sticky;
     top: 0;
     z-index: 100;
-    background: var(--mode-background);
-    border-bottom: 1px solid var(--mode-stroke);
+    background: var(--surface-page);
+    border-bottom: var(--border-width-sm) solid var(--border-secondary);
 }
 
 .container.cc-nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     min-height: var(--nav-height);
 }
 
 .nav_logo {
-    font-family: var(--font-heading);
-    font-size: var(--font-size-body-sm);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: var(--tracking-wide);
-    text-transform: uppercase;
-    color: var(--mode-text);
+    font-family: var(--font-headings);
+    font-size: var(--body-lg-size);
+    font-weight: var(--weight-condensed-medium);
+    color: var(--text-headings);
 }
 
 .nav_menu {
     display: flex;
     align-items: center;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -672,47 +1032,48 @@ blockquote {
 }
 
 .nav_link {
-    font-size: var(--font-size-body-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--mode-text-muted);
+    font-size: var(--body-sm-size);
+    line-height: var(--body-sm-line-height);
+    color: var(--text-body-secondary);
 }
 
 .nav_link:hover {
-    color: var(--mode-text);
+    color: var(--text-headings);
 }
 
 .nav_link.cc-current {
-    color: var(--mode-text);
+    color: var(--text-headings);
+    font-weight: var(--weight-semibold);
 }
 
 /* ============================================================
    Footer (global)
    ============================================================ */
 .footer {
-    padding: var(--space-2xl) 0;
-    background: var(--mode-background);
-    color: var(--mode-text);
-    border-top: 1px solid var(--mode-stroke);
+    padding: var(--space-1x) 0;
+    background: var(--surface-page);
+    color: var(--text-body);
+    border-top: var(--border-width-sm) solid var(--border-secondary);
 }
 
 .container.cc-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     flex-wrap: wrap;
 }
 
 .footer_copy {
     margin: 0;
-    font-size: var(--font-size-body-sm);
-    color: var(--mode-text-muted);
+    font-size: var(--body-sm-size);
+    color: var(--text-body-secondary);
 }
 
 .footer_menu {
     display: flex;
     align-items: center;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -723,89 +1084,83 @@ blockquote {
 }
 
 .footer_link {
-    font-size: var(--font-size-body-sm);
-    color: var(--mode-text-muted);
+    font-size: var(--body-sm-size);
+    color: var(--text-body-secondary);
 }
 
 .footer_link:hover {
-    color: var(--mode-text);
+    color: var(--text-headings);
 }
 
 /* ============================================================
    Button
+
+   Derived from the Figma Buttons page (node 67:137): lime action
+   surface, dark text, 8px radius, 2px border, semibold body type at
+   three sizes. A full variant sweep belongs to /component — this is the
+   foundation set only.
    ============================================================ */
 .button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-sm);
-    height: var(--button-height);
-    padding: 0 var(--space-lg);
+    gap: var(--space-2xs);
+    padding: var(--button-padding-block) var(--button-padding-inline);
     appearance: none;
-    border: 1px solid transparent;
+    background: var(--surface-action);
+    border: var(--button-border-width) solid var(--border-action);
     border-radius: var(--radius-button);
-    background: var(--colour-primary);
-    color: var(--colour-primary-contrast);
+    color: var(--text-on-action);
     font-family: var(--font-body);
-    font-size: var(--font-size-body-sm);
-    font-weight: var(--font-weight-semibold);
+    font-size: var(--body-md-size);
+    font-weight: var(--weight-semibold);
     line-height: 1;
     text-align: center;
-    transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), opacity var(--transition-base);
+    transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base);
 }
 
 .button:hover {
-    background: var(--colour-primary-hover);
-    color: var(--colour-primary-contrast);
+    background: var(--surface-action-hover);
+    border-color: var(--surface-action-hover);
+    color: var(--text-on-action);
 }
 
 .button:focus-visible {
-    outline: 2px solid var(--mode-accent);
+    outline: var(--border-width-md) solid var(--text-action-hover);
     outline-offset: 2px;
 }
 
-.button.cc-secondary {
-    background: var(--mode-surface);
-    border-color: var(--mode-stroke);
-    color: var(--mode-text);
+.button.cc-dark {
+    background: var(--surface-action-dark);
+    border-color: var(--surface-action-dark);
+    color: var(--neutral-white);
 }
 
-.button.cc-secondary:hover {
-    background: var(--mode-stroke);
-    color: var(--mode-text);
+.button.cc-dark:hover {
+    background: var(--surface-action-dark-hover);
+    border-color: var(--surface-action-dark-hover);
 }
 
-.button.cc-ghost {
+.button.cc-outline {
     background: transparent;
-    border-color: var(--mode-stroke);
-    color: var(--mode-text);
+    border-color: var(--border-dark);
+    color: var(--text-headings);
 }
 
-.button.cc-ghost:hover {
-    background: var(--mode-surface);
-    color: var(--mode-text);
+.button.cc-outline:hover {
+    background: var(--surface-action);
+    border-color: var(--border-action);
+    color: var(--text-on-action);
 }
 
-.button.cc-destructive {
-    background: var(--colour-destructive);
-    border-color: transparent;
-    color: var(--colour-primary-contrast);
-}
-
-.button.cc-destructive:hover {
-    background: var(--colour-destructive-hover);
-}
-
+/* Size variants change font-size only — the em padding scales with it,
+   so the button resizes proportionally without a height anywhere. */
 .button.cc-sm {
-    height: var(--button-height-sm);
-    padding: 0 var(--space-md);
-    font-size: var(--font-size-caption);
+    font-size: var(--body-sm-size);
 }
 
 .button.cc-lg {
-    height: var(--button-height-lg);
-    padding: 0 var(--space-xl);
-    font-size: var(--font-size-body-max);
+    font-size: var(--body-lg-size);
 }
 
 .button.cc-full {
@@ -814,7 +1169,9 @@ blockquote {
 
 .button.cc-disabled,
 .button[disabled] {
-    opacity: 0.4;
+    background: var(--surface-disabled);
+    border-color: var(--border-disabled);
+    color: var(--text-disabled);
     cursor: not-allowed;
     pointer-events: none;
 }
@@ -825,109 +1182,81 @@ blockquote {
 .form {
     display: flex;
     flex-direction: column;
-    gap: var(--space-lg);
+    gap: var(--space-md);
 }
 
 .form_field {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--space-sm);
+    gap: var(--space-2xs);
 }
 
 .form_label {
-    font-size: var(--font-size-label);
-    font-weight: var(--font-weight-semibold);
-    line-height: 1.2;
-    color: var(--mode-text);
+    font-size: var(--body-sm-size);
+    font-weight: var(--weight-semibold);
+    line-height: var(--body-sm-line-height);
+    color: var(--text-headings);
 }
 
 .form_help {
-    font-size: var(--font-size-caption);
-    line-height: var(--line-height-small);
-    color: var(--mode-text-muted);
+    font-size: var(--body-xs-size);
+    line-height: var(--body-xs-line-height);
+    color: var(--text-body-secondary);
 }
 
 .form_error {
-    font-size: var(--font-size-caption);
-    line-height: var(--line-height-small);
-    color: var(--colour-destructive);
+    font-size: var(--body-xs-size);
+    line-height: var(--body-xs-line-height);
+    color: var(--text-error);
 }
 
 .form_option {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-2xs);
 }
 
 .form_option-label {
-    font-size: var(--font-size-body-sm);
-    line-height: 1.2;
-    color: var(--mode-text);
+    font-size: var(--body-sm-size);
+    line-height: var(--body-sm-line-height);
+    color: var(--text-body);
     cursor: pointer;
 }
 
 .input {
     width: 100%;
-    height: var(--input-height);
-    padding: 0 var(--space-md);
+    padding: 0.75em var(--space-sm);
     appearance: none;
-    background: var(--mode-background);
-    border: 1px solid var(--mode-stroke);
+    background: var(--surface-default);
+    border: var(--border-width-sm) solid var(--border-secondary);
     border-radius: var(--radius-input);
-    color: var(--mode-text);
+    color: var(--text-body);
     font-family: var(--font-body);
-    font-size: var(--font-size-body-sm);
+    font-size: var(--body-md-size);
     line-height: 1;
     transition: border-color var(--transition-base), background-color var(--transition-base);
 }
 
 .input::placeholder {
-    color: var(--mode-text-dim);
+    color: var(--text-disabled);
 }
 
 .input:focus {
     outline: none;
-    border-color: var(--mode-accent);
+    border-color: var(--border-action);
 }
 
 .input.cc-error {
-    border-color: var(--colour-destructive);
+    border-color: var(--border-error);
 }
 
 .input.cc-textarea {
     height: auto;
     min-height: 8rem;
-    padding: var(--space-md);
-    line-height: var(--line-height-body);
+    padding: var(--space-sm);
+    line-height: var(--body-md-line-height);
     resize: vertical;
-}
-
-/* The caret is a data-URI background image. If Webflow's style API
-   rejects it on transfer, ship this one declaration in the custom-code
-   CSS embed instead. */
-.select {
-    width: 100%;
-    height: var(--input-height);
-    padding: 0 var(--space-2xl) 0 var(--space-md);
-    appearance: none;
-    background-color: var(--mode-background);
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%236b6862' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right var(--space-md) center;
-    background-size: 12px 8px;
-    border: 1px solid var(--mode-stroke);
-    border-radius: var(--radius-input);
-    color: var(--mode-text);
-    font-family: var(--font-body);
-    font-size: var(--font-size-body-sm);
-    line-height: 1;
-    cursor: pointer;
-}
-
-.select:focus {
-    outline: none;
-    border-color: var(--mode-accent);
 }
 
 .checkbox {
@@ -936,24 +1265,24 @@ blockquote {
     height: 1.25rem;
     margin: 0;
     appearance: none;
-    background-color: var(--mode-background);
+    background-color: var(--surface-default);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 12px 9px;
-    border: 1px solid var(--mode-stroke);
-    border-radius: var(--radius-sm);
+    border: var(--border-width-sm) solid var(--border-secondary);
+    border-radius: var(--radius-xs);
     cursor: pointer;
     transition: background-color var(--transition-base), border-color var(--transition-base);
 }
 
 .checkbox:checked {
-    background-color: var(--mode-accent);
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 9' fill='none'%3E%3Cpath d='M1 4.5 4.5 8 11 1' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    border-color: var(--mode-accent);
+    background-color: var(--surface-action);
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 9' fill='none'%3E%3Cpath d='M1 4.5 4.5 8 11 1' stroke='%230b0620' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    border-color: var(--border-action);
 }
 
 .checkbox:focus-visible {
-    outline: 2px solid var(--mode-accent);
+    outline: var(--border-width-md) solid var(--text-action-hover);
     outline-offset: 2px;
 }
 
@@ -963,59 +1292,20 @@ blockquote {
     height: 1.25rem;
     margin: 0;
     appearance: none;
-    background-color: var(--mode-background);
-    border: 1px solid var(--mode-stroke);
+    background-color: var(--surface-default);
+    border: var(--border-width-sm) solid var(--border-secondary);
     border-radius: var(--radius-full);
     cursor: pointer;
-    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    transition: border-color var(--transition-base), border-width var(--transition-base);
 }
 
 .radio:checked {
-    border-color: var(--mode-accent);
+    border-color: var(--border-action);
     border-width: 6px;
 }
 
 .radio:focus-visible {
-    outline: 2px solid var(--mode-accent);
-    outline-offset: 2px;
-}
-
-.toggle {
-    position: relative;
-    flex: 0 0 auto;
-    width: 2.75rem;
-    height: 1.5rem;
-    margin: 0;
-    appearance: none;
-    background: var(--colour-neutral-400);
-    border: 0;
-    border-radius: var(--radius-full);
-    cursor: pointer;
-    transition: background-color var(--transition-base);
-}
-
-.toggle::after {
-    content: "";
-    position: absolute;
-    top: 0.1875rem;
-    left: 0.1875rem;
-    width: 1.125rem;
-    height: 1.125rem;
-    background: var(--colour-neutral-100);
-    border-radius: var(--radius-full);
-    transition: transform var(--transition-base);
-}
-
-.toggle:checked {
-    background: var(--mode-accent);
-}
-
-.toggle:checked::after {
-    transform: translateX(1.25rem);
-}
-
-.toggle:focus-visible {
-    outline: 2px solid var(--mode-accent);
+    outline: var(--border-width-md) solid var(--text-action-hover);
     outline-offset: 2px;
 }
 
@@ -1028,41 +1318,31 @@ blockquote {
     /* Stops the chip stretching to full width when it is a direct child of
        a column flex container such as .card. Ignored outside flex. */
     align-self: flex-start;
-    gap: var(--space-xs);
-    padding: 0.25rem 0.625rem;
-    background: var(--mode-surface);
-    border: 1px solid transparent;
+    gap: var(--space-3xs);
+    padding: var(--space-3xs) var(--space-xs);
+    background: var(--surface-disabled);
+    border: var(--border-width-sm) solid transparent;
     border-radius: var(--radius-sm);
-    color: var(--mode-text);
-    font-family: var(--font-mono);
-    font-size: var(--font-size-eyebrow);
-    font-weight: var(--font-weight-medium);
-    line-height: 1.4;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    color: var(--text-body);
+    font-size: var(--body-xs-size);
+    font-weight: var(--weight-semibold);
+    line-height: var(--body-xs-line-height);
     white-space: nowrap;
 }
 
-.tag.cc-accent {
-    background: var(--colour-primary);
-    color: var(--colour-primary-contrast);
+.tag.cc-action {
+    background: var(--surface-action);
+    color: var(--text-on-action);
 }
 
 .tag.cc-outline {
     background: transparent;
-    border-color: var(--mode-stroke);
-    color: var(--mode-text-muted);
+    border-color: var(--border-secondary);
+    color: var(--text-body-secondary);
 }
 
 .tag.cc-round {
     border-radius: var(--radius-full);
-}
-
-/* For use on a filled surface — see the note on .card_description.cc-inverse. */
-.tag.cc-inverse {
-    background: rgba(255, 255, 255, 0.18);
-    border-color: transparent;
-    color: var(--colour-primary-contrast);
 }
 
 /* ============================================================
@@ -1071,13 +1351,13 @@ blockquote {
 .card {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-sm);
     height: 100%;
-    padding: var(--space-xl);
-    background: var(--mode-surface);
-    border: 1px solid var(--mode-stroke);
+    padding: var(--space-md);
+    background: var(--surface-default);
+    border: var(--border-width-sm) solid var(--border-secondary);
     border-radius: var(--radius-card);
-    color: var(--mode-text);
+    color: var(--text-body);
 }
 
 .card_image {
@@ -1087,24 +1367,26 @@ blockquote {
 
 .card_title {
     margin: 0;
-    font-family: var(--font-heading);
-    font-size: clamp(1.25rem, 1.125rem + 0.42vw, 1.5rem);
-    font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-heading);
-    color: inherit;
+    font-family: var(--font-headings);
+    font-size: var(--h5-size);
+    font-weight: var(--weight-condensed-medium);
+    line-height: var(--h5-line-height);
+    letter-spacing: var(--h5-letter-spacing);
+    color: var(--text-headings);
 }
 
 .card_description {
     margin: 0;
-    font-size: var(--font-size-body-sm);
-    color: var(--mode-text-muted);
+    font-size: var(--body-sm-size);
+    line-height: var(--body-sm-line-height);
+    color: var(--text-body-secondary);
 }
 
-/* On a filled card (.card.cc-featured) the muted grey has no contrast, so
-   the description inherits the card's own colour instead. Expressed as a
-   combo on the child rather than `.card.cc-featured .card_description` —
-   Webflow cannot represent a descendant selector, so a rule written that
-   way would import as nothing. */
+/* On a filled card the muted grey has no contrast, so the description
+   inherits the card's own colour instead. Expressed as a combo on the
+   child rather than `.card.cc-action .card_description` — Webflow cannot
+   represent a descendant selector, so a rule written that way would
+   import as nothing. */
 .card_description.cc-inverse {
     color: inherit;
     opacity: 0.85;
@@ -1113,30 +1395,32 @@ blockquote {
 .card_footer {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-2xs);
     margin-top: auto;
-    padding-top: var(--space-sm);
+    padding-top: var(--space-2xs);
 }
 
-.card.cc-featured {
-    background: var(--colour-primary);
-    border-color: var(--colour-primary);
-    color: var(--colour-primary-contrast);
+.card.cc-action {
+    background: var(--surface-action);
+    border-color: var(--border-action);
+    color: var(--text-on-action);
+}
+
+.card.cc-dark {
+    background: var(--surface-action-dark);
+    border-color: var(--border-dark);
+    color: var(--neutral-white);
 }
 
 .card.cc-compact {
-    gap: var(--space-sm);
-    padding: var(--space-md);
+    gap: var(--space-2xs);
+    padding: var(--space-sm);
 }
 
 .card.cc-flat {
     background: transparent;
     border-color: transparent;
     padding: 0;
-}
-
-.card.cc-raised {
-    box-shadow: var(--shadow-card);
 }
 
 /* ============================================================
@@ -1152,7 +1436,7 @@ blockquote {
     justify-content: center;
     width: 1.5rem;
     height: 1.5rem;
-    color: var(--mode-text);
+    color: var(--icon-body);
 }
 
 .icon.cc-sm {
@@ -1165,62 +1449,12 @@ blockquote {
     height: 2rem;
 }
 
-.icon.cc-accent {
-    color: var(--mode-accent);
+.icon.cc-action {
+    color: var(--icon-action);
 }
 
-/* ============================================================
-   Visual heading classes (.h1–.h6)
-
-   Deliberately placed AFTER every component so they out-rank component
-   element classes at equal specificity — that is what makes the
-   documented pattern work:
-
-       <h3 class="card_title h5">   h3 in the DOM, h5 on screen
-
-   Webflow's own cascade is element defaults → tag styles → class
-   styles, and later-declared classes win ties, so this ordering is what
-   the Designer reproduces. Keep this block last.
-   ============================================================ */
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
-    font-family: var(--font-heading);
-    font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-heading);
-    letter-spacing: var(--tracking-heading);
-    text-wrap: balance;
-}
-
-.h1 {
-    font-size: clamp(2.8rem, 1.45rem + 4.5vw, 5.5rem);
-    line-height: var(--line-height-display);
-    letter-spacing: var(--tracking-display);
-}
-
-.h2 {
-    font-size: clamp(2rem, 1.1rem + 3vw, 3.8rem);
-    line-height: var(--line-height-display);
-    letter-spacing: var(--tracking-display);
-}
-
-.h3 {
-    font-size: clamp(1.5rem, 1.1rem + 1.33vw, 2.3rem);
-}
-
-.h4 {
-    font-size: clamp(1.375rem, 1.1875rem + 0.63vw, 1.75rem);
-}
-
-.h5 {
-    font-size: clamp(1.25rem, 1.125rem + 0.42vw, 1.5rem);
-}
-
-.h6 {
-    font-size: clamp(1.125rem, 1.0625rem + 0.21vw, 1.25rem);
+.icon.cc-headings {
+    color: var(--icon-headings);
 }
 
 /* ============================================================
@@ -1230,9 +1464,22 @@ blockquote {
    fills. Never used on real pages. If the style guide is dropped from a
    project, delete this whole block.
    ============================================================ */
+.styles__head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+    margin-bottom: var(--space-lg);
+}
+
+.styles__head-text {
+    max-width: 44rem;
+}
+
 .styles__block {
-    padding: var(--space-2xl) 0;
-    border-bottom: 1px solid var(--mode-stroke);
+    padding: var(--space-1x) 0;
+    border-bottom: var(--border-width-sm) solid var(--border-secondary);
 }
 
 .styles__block.cc-last {
@@ -1242,86 +1489,98 @@ blockquote {
 .styles__stack {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
+    gap: var(--space-sm);
 }
 
 .styles__inline {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-md);
+    gap: var(--space-sm);
 }
 
 .styles__swatch {
     width: 100%;
-    height: 5rem;
-    margin-bottom: var(--space-sm);
-    border: 1px solid var(--mode-stroke);
-    border-radius: var(--radius-md);
-}
-
-.styles__spacer {
-    height: 1.25rem;
-    background: var(--mode-accent);
+    height: 4.5rem;
+    margin-bottom: var(--space-2xs);
+    border: var(--border-width-sm) solid var(--border-secondary);
     border-radius: var(--radius-sm);
 }
 
-.styles__spacer.cc-xs {
-    width: var(--space-xs);
+.styles__bar {
+    height: 1.25rem;
+    background: var(--surface-pattern-purple);
+    border-radius: var(--radius-2xs);
 }
 
-.styles__spacer.cc-sm {
-    width: var(--space-sm);
+.styles__row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-3xs) 0;
 }
 
-.styles__spacer.cc-md {
-    width: var(--space-md);
-}
-
-.styles__spacer.cc-lg {
-    width: var(--space-lg);
-}
-
-.styles__spacer.cc-xl {
-    width: var(--space-xl);
-}
-
-.styles__spacer.cc-2xl {
-    width: var(--space-2xl);
-}
-
-.styles__spacer.cc-3xl {
-    width: var(--space-3xl);
-}
-
-.styles__spacer.cc-4xl {
-    width: var(--space-4xl);
+.styles__key {
+    flex: 0 0 auto;
+    width: 14rem;
+    font-size: var(--body-xs-size);
+    color: var(--text-body-secondary);
 }
 
 .styles__demo {
-    padding: var(--space-sm);
-    background: var(--mode-surface);
-    border: 1px dashed var(--mode-stroke);
-    border-radius: var(--radius-sm);
-    color: var(--mode-text-muted);
-    font-family: var(--font-mono);
-    font-size: var(--font-size-eyebrow);
+    padding: var(--space-2xs);
+    background: var(--surface-disabled);
+    border: var(--border-width-sm) dashed var(--border-secondary);
+    border-radius: var(--radius-2xs);
+    color: var(--text-body-secondary);
+    font-size: var(--body-xs-size);
     text-align: center;
+}
+
+.styles__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--body-sm-size);
+}
+
+.styles__table th,
+.styles__table td {
+    padding: var(--space-3xs) var(--space-2xs);
+    border-bottom: var(--border-width-sm) solid var(--border-tertiary);
+    text-align: left;
+    vertical-align: top;
+}
+
+.styles__table th {
+    font-weight: var(--weight-semibold);
+    color: var(--text-headings);
 }
 
 /* ============================================================
    Utilities (max 4 per element — beyond that, make a custom class)
    ============================================================ */
-.u-font-heading {
-    font-family: var(--font-heading) !important;
+.u-font-display {
+    font-family: var(--font-display) !important;
+}
+
+.u-font-headings {
+    font-family: var(--font-headings) !important;
 }
 
 .u-font-body {
     font-family: var(--font-body) !important;
 }
 
-.u-font-mono {
-    font-family: var(--font-mono) !important;
+.u-weight-regular {
+    font-weight: var(--weight-regular) !important;
+}
+
+.u-weight-semibold {
+    font-weight: var(--weight-semibold) !important;
+}
+
+.u-weight-bold {
+    font-weight: var(--weight-bold) !important;
 }
 
 .u-text-left {
@@ -1342,6 +1601,10 @@ blockquote {
 
 .u-text-pretty {
     text-wrap: pretty !important;
+}
+
+.u-text-uppercase {
+    text-transform: uppercase !important;
 }
 
 .u-text-clamp-1 {
@@ -1365,44 +1628,64 @@ blockquote {
     overflow: hidden !important;
 }
 
-.u-text-indent {
-    text-indent: 2.5rem !important;
+.u-text-headings {
+    color: var(--text-headings) !important;
 }
 
-.u-text-indent-lg {
-    text-indent: 3rem !important;
+.u-text-body {
+    color: var(--text-body) !important;
 }
 
-.u-text-uppercase {
-    text-transform: uppercase !important;
+.u-text-secondary {
+    color: var(--text-body-secondary) !important;
 }
 
-.u-text-primary {
-    color: var(--mode-text) !important;
+.u-text-action {
+    color: var(--text-action) !important;
 }
 
-.u-text-muted {
-    color: var(--mode-text-muted) !important;
+.u-text-error {
+    color: var(--text-error) !important;
 }
 
-.u-text-dim {
-    color: var(--mode-text-dim) !important;
+.u-text-on-action {
+    color: var(--text-on-action) !important;
 }
 
-.u-text-accent {
-    color: var(--mode-accent) !important;
+.u-bg-page {
+    background: var(--surface-page) !important;
 }
 
-.u-bg-background {
-    background: var(--mode-background) !important;
+.u-bg-default {
+    background: var(--surface-default) !important;
 }
 
-.u-bg-surface {
-    background: var(--mode-surface) !important;
+.u-bg-action {
+    background: var(--surface-action) !important;
 }
 
-.u-bg-accent {
-    background: var(--colour-primary) !important;
+.u-bg-action-dark {
+    background: var(--surface-action-dark) !important;
+}
+
+.u-bg-lime {
+    background: var(--surface-pattern-lime) !important;
+}
+
+.u-bg-purple {
+    background: var(--surface-pattern-purple) !important;
+}
+
+.u-bg-tomato {
+    background: var(--surface-pattern-tomato) !important;
+}
+
+.u-bg-pink {
+    background: var(--surface-pattern-pink) !important;
+}
+
+.u-bg-dark {
+    background: var(--surface-pattern-dark) !important;
 }
 
 .u-m-0 {
@@ -1416,6 +1699,10 @@ blockquote {
 
 .u-mt-0 {
     margin-top: 0 !important;
+}
+
+.u-mt-2xs {
+    margin-top: var(--space-2xs) !important;
 }
 
 .u-mt-xs {
@@ -1438,16 +1725,16 @@ blockquote {
     margin-top: var(--space-xl) !important;
 }
 
-.u-mt-2xl {
-    margin-top: var(--space-2xl) !important;
-}
-
-.u-mt-3xl {
-    margin-top: var(--space-3xl) !important;
+.u-mt-1x {
+    margin-top: var(--space-1x) !important;
 }
 
 .u-mb-0 {
     margin-bottom: 0 !important;
+}
+
+.u-mb-2xs {
+    margin-bottom: var(--space-2xs) !important;
 }
 
 .u-mb-xs {
@@ -1470,12 +1757,8 @@ blockquote {
     margin-bottom: var(--space-xl) !important;
 }
 
-.u-mb-2xl {
-    margin-bottom: var(--space-2xl) !important;
-}
-
-.u-mb-3xl {
-    margin-bottom: var(--space-3xl) !important;
+.u-mb-1x {
+    margin-bottom: var(--space-1x) !important;
 }
 
 .u-p-0 {
@@ -1486,6 +1769,10 @@ blockquote {
     padding-top: 0 !important;
 }
 
+.u-pt-sm {
+    padding-top: var(--space-sm) !important;
+}
+
 .u-pt-md {
     padding-top: var(--space-md) !important;
 }
@@ -1494,12 +1781,12 @@ blockquote {
     padding-top: var(--space-lg) !important;
 }
 
-.u-pt-xl {
-    padding-top: var(--space-xl) !important;
-}
-
 .u-pb-0 {
     padding-bottom: 0 !important;
+}
+
+.u-pb-sm {
+    padding-bottom: var(--space-sm) !important;
 }
 
 .u-pb-md {
@@ -1508,10 +1795,6 @@ blockquote {
 
 .u-pb-lg {
     padding-bottom: var(--space-lg) !important;
-}
-
-.u-pb-xl {
-    padding-bottom: var(--space-xl) !important;
 }
 
 .u-d-none {
@@ -1566,6 +1849,18 @@ blockquote {
     object-fit: cover !important;
 }
 
+.u-radius-sm {
+    border-radius: var(--radius-sm) !important;
+}
+
+.u-radius-lg {
+    border-radius: var(--radius-lg) !important;
+}
+
+.u-radius-full {
+    border-radius: var(--radius-full) !important;
+}
+
 .u-aspect-1x1 {
     aspect-ratio: 1 / 1 !important;
 }
@@ -1587,11 +1882,40 @@ blockquote {
 
    Only Webflow's three breakpoints are used — the style API accepts no
    others, and no min-width queries.
+
+   991px carries Figma's Tablet mode, 767px carries Mobile, and 479px
+   inherits Mobile (Figma defines no fourth mode). Tokens whose value is
+   identical across modes are not repeated.
    ============================================================ */
 @media screen and (max-width: 991px) {
     :root {
-        --grid-margin: var(--space-xl);
-        --section-padding: var(--space-3xl);
+        /* Typography — Tablet mode */
+        --display-1-size: 5rem;
+        --display-2-size: 4.25rem;
+        --display-3-size: 3.75rem;
+        --display-4-size: 3rem;
+        --display-5-size: 2.5rem;
+        --display-6-size: 2rem;
+
+        --h1-size: 3.75rem;
+        --h2-size: 3rem;
+        --h3-size: 2.25rem;
+        --h4-size: 1.75rem;
+
+        --h4-line-height: 1.2;
+
+        --body-xl-size: 1.375rem;
+        --body-xl-line-height: 1.4545;
+
+        /* Spacing — Tablet mode */
+        --space-lg: var(--scale-800);
+        --space-xl: var(--scale-900);
+        --space-1x: var(--scale-1000);
+        --space-2x: var(--scale-1400);
+        --space-3x: var(--scale-1600);
+        --space-4x: var(--scale-1800);
+        --space-margin: var(--scale-1000);
+
         --nav-height: 4rem;
     }
 
@@ -1666,8 +1990,49 @@ blockquote {
 
 @media screen and (max-width: 767px) {
     :root {
-        --grid-margin: var(--space-lg);
-        --section-padding: var(--space-2xl);
+        /* Typography — Mobile mode */
+        --display-1-size: 3.75rem;
+        --display-2-size: 2.9375rem;
+        --display-3-size: 2.5rem;
+        --display-4-size: 2rem;
+        --display-5-size: 2rem;
+        --display-6-size: 1.75rem;
+
+        --h1-size: 3rem;
+        --h2-size: 2.5rem;
+        --h3-size: 2rem;
+        --h4-size: 1.75rem;
+
+        --h1-letter-spacing: -1px;
+        --h2-letter-spacing: -1px;
+        --h3-letter-spacing: -1px;
+        --h4-letter-spacing: -0.5px;
+        --h5-letter-spacing: 0;
+
+        --body-xl-size: 1.25rem;
+        --body-xl-line-height: 1.4;
+
+        /* The row's negative margin must never exceed the container's
+           padding or the page scrolls sideways. Figma's Mobile
+           spacing/MARGIN is 8px, so the gutter is capped at 16px here
+           (2 × margin) rather than following --space-md to 20px. */
+        --grid-gutter: var(--space-sm);
+
+        /* Spacing — Mobile mode */
+        --space-md: var(--scale-500);
+        --space-lg: var(--scale-600);
+        --space-xl: var(--scale-700);
+        --space-1x: var(--scale-1000);
+        --space-2x: var(--scale-1200);
+        --space-3x: var(--scale-1400);
+        --space-4x: var(--scale-1800);
+        --space-margin: var(--scale-200);
+
+        /* Radii — Mobile mode */
+        --radius-md: var(--scale-300);
+        --radius-lg: var(--scale-400);
+        --radius-xl: var(--scale-600);
+        --radius-2xl: var(--scale-800);
     }
 
     .col-sm-1 {
@@ -1736,11 +2101,8 @@ blockquote {
 }
 
 @media screen and (max-width: 479px) {
-    :root {
-        --grid-margin: var(--space-md);
-        --section-padding: var(--space-xl);
-    }
-
+    /* Figma defines no fourth mode — every token here inherits the
+       Mobile values set at 767px. Only the grid changes. */
     .col-xs-1 {
         width: 8.3333%;
     }
@@ -1789,11 +2151,6 @@ blockquote {
         width: 100%;
     }
 
-    .u-text-indent,
-    .u-text-indent-lg {
-        text-indent: 1.5rem !important;
-    }
-
     .u-d-xs-none {
         display: none !important;
     }
@@ -1815,13 +2172,13 @@ blockquote {
 
 /* Text selection */
 ::selection {
-    background: var(--mode-accent);
-    color: var(--colour-neutral-100);
+    background: var(--surface-action);
+    color: var(--text-on-action);
 }
 
 /* In-page anchor targets land below the sticky nav rather than under it. */
 [id] {
-    scroll-margin-top: calc(var(--nav-height) + var(--space-md));
+    scroll-margin-top: calc(var(--nav-height) + var(--space-sm));
 }
 
 /* Interactions and animations must degrade for reduced-motion users. */
